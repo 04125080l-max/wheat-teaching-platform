@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="darkreader-lock">
+<title>冬小麦学习空间 · 田园物语</title>
+<style>
+:root {
+  --bg: #0e100c;
+  --fg: #f5f0e0;
+  --accent: #f2d98a;
+  --accent-deep: #d9b84b;
+  --dim: rgba(245, 240, 224, .6);
+}
+
+/* ============================================================
+   [P2·DS] Design Token 基座 —— 跨页同源视觉 DNA（PHASE 3 · STEP 1）
+   - 三页共享同一套 --ds-* 令牌；页面主题经 <html data-theme="dark"> 切换
+   - 旧变量保留原值；值一致者经兼容层映射到 --ds-*（不改变现有表现）
+   ============================================================ */
+:root{
+  /* —— Color · 麦苗绿 —— */
+  --ds-green-50:#F0FDF9; --ds-green-100:#CCFBF1; --ds-green-200:#99F6E4; --ds-green-300:#5EEAD4;
+  --ds-green-400:#2DD4BF; --ds-green-500:#14B8A6; --ds-green-600:#0D9488; --ds-green-700:#0F766E;
+  --ds-green-800:#115E59; --ds-green-900:#134E4A;
+  /* —— Color · 小麦金 —— */
+  --ds-gold-50:#FFFBEB; --ds-gold-100:#FEF3C7; --ds-gold-200:#FDE68A; --ds-gold-300:#FCD34D;
+  --ds-gold-400:#FBBF24; --ds-gold-500:#F59E0B; --ds-gold-600:#D97706; --ds-gold-700:#B45309;
+  /* —— Color · 中性 —— */
+  --ds-neutral-0:#FFFFFF; --ds-neutral-50:#F9FAFB; --ds-neutral-100:#F3F4F6; --ds-neutral-200:#E5E7EB;
+  --ds-neutral-300:#D1D5DB; --ds-neutral-400:#9CA3AF; --ds-neutral-500:#6B7280; --ds-neutral-600:#4B5563;
+  --ds-neutral-700:#374151; --ds-neutral-800:#1F2937; --ds-neutral-900:#111827; --ds-neutral-950:#030712;
+  /* —— Semantic —— */
+  --ds-success:#059669; --ds-success-soft:#D1FAE5;
+  --ds-warning:#D97706; --ds-warning-soft:#FEF3C7;
+  --ds-danger:#DC2626; --ds-danger-soft:#FEE2E2;
+  --ds-info:#2563EB; --ds-info-soft:#DBEAFE;
+  /* —— Theme · Light（默认） —— */
+  --ds-bg:#F7FAF7; --ds-bg-elevated:#FFFFFF; --ds-bg-surface:#FFFFFF; --ds-bg-muted:#EFF5F0;
+  --ds-text:#134E4A; --ds-text-secondary:#3E5C57; --ds-text-muted:#6B847E; --ds-text-inverse:#FFFFFF;
+  --ds-border:#E2EBE6; --ds-border-subtle:#EDF3EF;
+  --ds-primary:#0D9488; --ds-primary-hover:#0F766E; --ds-primary-soft:#CCFBF1;
+  --ds-accent:#D97706; --ds-accent-soft:#FEF3C7;
+  /* —— Radius —— */
+  --ds-radius-xs:6px; --ds-radius-sm:8px; --ds-radius-md:12px; --ds-radius-lg:16px; --ds-radius-xl:24px; --ds-radius-full:9999px;
+  /* —— Shadow · Light —— */
+  --ds-shadow-xs:0 1px 2px rgba(15,23,42,.06);
+  --ds-shadow-sm:0 2px 6px rgba(15,23,42,.07);
+  --ds-shadow-md:0 6px 16px rgba(15,23,42,.09);
+  --ds-shadow-lg:0 14px 34px rgba(15,23,42,.12);
+  --ds-shadow-xl:0 24px 60px rgba(15,23,42,.16);
+  /* —— Spacing（4px 基础） —— */
+  --ds-space-1:4px; --ds-space-2:8px; --ds-space-3:12px; --ds-space-4:16px; --ds-space-5:20px;
+  --ds-space-6:24px; --ds-space-8:32px; --ds-space-10:40px; --ds-space-12:48px; --ds-space-16:64px;
+  --ds-space-20:80px; --ds-space-24:96px;
+  /* —— Layout —— */
+  --ds-content-max:1440px; --ds-content-reading:720px; --ds-gutter:24px; --ds-section-gap:64px;
+  /* —— Typography（Step 2 迁移；此处仅建令牌） —— */
+  --ds-font-sans:'PingFang SC','Microsoft YaHei','Noto Sans SC',system-ui,-apple-system,sans-serif;
+  --ds-font-display:'PingFang SC','Microsoft YaHei','Noto Sans SC',system-ui,sans-serif;
+  --ds-font-mono:'SF Mono',ui-monospace,Consolas,monospace;
+  --ds-font-number:'PingFang SC','Microsoft YaHei',system-ui,sans-serif;
+  /* —— Motion —— */
+  --ds-duration-fast:150ms; --ds-duration-normal:220ms; --ds-duration-slow:300ms;
+  --ds-ease-standard:cubic-bezier(.4,0,.2,1); --ds-ease-emphasized:cubic-bezier(.2,.8,.2,1);
+  /* —— Z-index —— */
+  --ds-z-base:0; --ds-z-content:1; --ds-z-sticky:100; --ds-z-dropdown:300; --ds-z-overlay:400;
+  --ds-z-modal:500; --ds-z-toast:600; --ds-z-pet:2147483000;
+  /* —— Typography Scale（STEP 2） —— */
+  --ds-text-xs:12px; --ds-text-sm:14px; --ds-text-md:16px; --ds-text-lg:18px; --ds-text-xl:20px;
+  --ds-text-2xl:24px; --ds-text-3xl:30px; --ds-text-4xl:36px; --ds-text-5xl:48px;
+  --ds-leading-tight:1.2; --ds-leading-snug:1.4; --ds-leading-normal:1.55; --ds-leading-relaxed:1.75;
+  --ds-weight-regular:400; --ds-weight-medium:500; --ds-weight-semibold:600; --ds-weight-bold:700;
+  /* —— Modal（STEP 4） —— */
+  --ds-modal-s:440px; --ds-modal-m:480px; --ds-modal-l:720px; --ds-modal-xl:1060px; --ds-modal-full:96vw;
+  --ds-shadow-modal:0 24px 70px rgba(15,23,42,.22);
+}
+/* —— Theme · Dark（JOURNEY / 暗色区域；<html data-theme="dark"> 启用） —— */
+[data-theme="dark"]{
+  --ds-bg:#0E100C; --ds-bg-elevated:#171A15; --ds-bg-surface:#1B1F19; --ds-bg-muted:#232821;
+  --ds-text:#F5F0E0; --ds-text-secondary:#C9C4B2; --ds-text-muted:rgba(245,240,224,.55); --ds-text-inverse:#0E100C;
+  --ds-border:rgba(245,240,224,.14); --ds-border-subtle:rgba(245,240,224,.08);
+  --ds-primary:#34D399; --ds-primary-hover:#10B981; --ds-primary-soft:rgba(52,211,153,.15);
+  --ds-accent:#F2D98A; --ds-accent-soft:rgba(242,217,138,.16);
+  --ds-shadow-xs:0 1px 2px rgba(0,0,0,.4);
+  --ds-shadow-sm:0 2px 6px rgba(0,0,0,.42);
+  --ds-shadow-md:0 6px 16px rgba(0,0,0,.45);
+  --ds-shadow-lg:0 14px 34px rgba(0,0,0,.5);
+  --ds-shadow-xl:0 24px 60px rgba(0,0,0,.55);
+  --ds-shadow-modal:0 24px 70px rgba(0,0,0,.55);
+}
+
+/* —— Typography 语义层级（STEP 2；新增工具类，旧组件渐进迁移用） —— */
+.ds-display{font-family:var(--ds-font-display);font-size:var(--ds-text-5xl);line-height:var(--ds-leading-tight);font-weight:var(--ds-weight-bold);letter-spacing:.01em}
+.ds-title-xl{font-family:var(--ds-font-display);font-size:var(--ds-text-3xl);line-height:var(--ds-leading-tight);font-weight:var(--ds-weight-bold)}
+.ds-title-lg{font-family:var(--ds-font-display);font-size:var(--ds-text-2xl);line-height:var(--ds-leading-snug);font-weight:var(--ds-weight-semibold)}
+.ds-title-md{font-family:var(--ds-font-display);font-size:var(--ds-text-xl);line-height:var(--ds-leading-snug);font-weight:var(--ds-weight-semibold)}
+.ds-body-lg{font-size:var(--ds-text-lg);line-height:var(--ds-leading-relaxed)}
+.ds-body{font-size:var(--ds-text-md);line-height:var(--ds-leading-normal)}
+.ds-body-sm{font-size:var(--ds-text-sm);line-height:var(--ds-leading-normal)}
+.ds-caption{font-size:var(--ds-text-xs);line-height:var(--ds-leading-snug);color:var(--ds-text-muted)}
+.ds-label{font-size:var(--ds-text-xs);line-height:1.2;font-weight:var(--ds-weight-semibold);letter-spacing:.06em}
+.ds-num{font-family:var(--ds-font-number);font-variant-numeric:tabular-nums}
+
+/* ============================================================
+   [P2·DS] Component Foundation（STEP 3）—— Button / Card / Badge / Progress / Icon
+   纯新增基座：旧类一律不动（兼容层仅语义别名），后续 Step 渐进接入
+   ============================================================ */
+/* —— Button —— */
+.ds-btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:var(--ds-space-2);
+  font-family:var(--ds-font-sans);font-size:var(--ds-text-sm);font-weight:var(--ds-weight-semibold);
+  line-height:1;height:40px;padding:0 var(--ds-space-5);
+  border-radius:var(--ds-radius-md);border:1px solid transparent;cursor:pointer;
+  transition:background var(--ds-duration-fast) var(--ds-ease-standard),border-color var(--ds-duration-fast) var(--ds-ease-standard),color var(--ds-duration-fast) var(--ds-ease-standard),box-shadow var(--ds-duration-fast) var(--ds-ease-standard),transform var(--ds-duration-fast) var(--ds-ease-standard);
+  white-space:nowrap;user-select:none;
+}
+.ds-btn:focus-visible{outline:2px solid var(--ds-primary);outline-offset:2px}
+.ds-btn:disabled{opacity:.55;cursor:not-allowed;pointer-events:none}
+.ds-btn-primary{background:var(--ds-primary);color:var(--ds-text-inverse);box-shadow:var(--ds-shadow-sm)}
+.ds-btn-primary:hover{background:var(--ds-primary-hover)}
+.ds-btn-primary:active{transform:translateY(1px)}
+.ds-btn-secondary{background:var(--ds-bg-surface);color:var(--ds-text);border-color:var(--ds-border)}
+.ds-btn-secondary:hover{border-color:var(--ds-primary);color:var(--ds-primary)}
+.ds-btn-ghost{background:transparent;color:var(--ds-text-secondary)}
+.ds-btn-ghost:hover{background:var(--ds-bg-muted);color:var(--ds-text)}
+.ds-btn-danger{background:var(--ds-danger);color:var(--ds-neutral-0)}
+.ds-btn-danger:hover{filter:brightness(.95)}
+.ds-btn-sm{height:32px;padding:0 var(--ds-space-3);font-size:var(--ds-text-xs)}
+.ds-btn-lg{height:48px;padding:0 var(--ds-space-6);font-size:var(--ds-text-md)}
+.ds-btn-icon{width:40px;height:40px;padding:0;border-radius:var(--ds-radius-md)}
+.ds-btn .ds-icon{width:18px;height:18px}
+/* —— Card —— */
+.ds-card{
+  background:var(--ds-bg-surface);border:1px solid var(--ds-border);border-radius:var(--ds-radius-lg);
+  box-shadow:var(--ds-shadow-sm);padding:var(--ds-space-5);
+}
+.ds-card-teaching{background:var(--ds-primary-soft);border-color:var(--ds-primary);border-left-width:4px;border-left-color:var(--ds-primary)}
+.ds-card-status{border-left-width:4px;border-left-color:var(--ds-info)}
+.ds-card-mission{background:linear-gradient(180deg,var(--ds-bg-surface),var(--ds-bg-muted));border-color:var(--ds-gold-200);border-left-width:4px;border-left-color:var(--ds-gold-600)}
+.ds-card-interactive{transition:box-shadow var(--ds-duration-normal) var(--ds-ease-standard),transform var(--ds-duration-normal) var(--ds-ease-standard)}
+.ds-card-interactive:hover{box-shadow:var(--ds-shadow-md);transform:translateY(-2px)}
+/* —— Badge —— */
+.ds-badge{
+  display:inline-flex;align-items:center;gap:var(--ds-space-1);height:24px;padding:0 var(--ds-space-2);
+  border-radius:var(--ds-radius-full);font-size:var(--ds-text-xs);font-weight:var(--ds-weight-semibold);
+  line-height:1;white-space:nowrap;background:var(--ds-bg-muted);color:var(--ds-text-secondary);
+  border:1px solid var(--ds-border-subtle);
+}
+.ds-badge-stage{background:var(--ds-primary-soft);color:var(--ds-primary)}
+.ds-badge-success{background:var(--ds-success-soft);color:var(--ds-success)}
+.ds-badge-warning{background:var(--ds-warning-soft);color:var(--ds-warning)}
+.ds-badge-danger{background:var(--ds-danger-soft);color:var(--ds-danger)}
+.ds-badge-info{background:var(--ds-info-soft);color:var(--ds-info)}
+.ds-badge-muted{background:var(--ds-bg-muted);color:var(--ds-text-muted)}
+.ds-badge-locked{background:var(--ds-bg-muted);color:var(--ds-text-muted);opacity:.6}
+/* —— Progress · numeric —— */
+.ds-progress{display:flex;flex-direction:column;gap:var(--ds-space-1);width:100%}
+.ds-progress-label{display:flex;justify-content:space-between;font-size:var(--ds-text-xs);color:var(--ds-text-secondary)}
+.ds-progress-track{height:8px;border-radius:var(--ds-radius-full);background:var(--ds-bg-muted);overflow:hidden}
+.ds-progress-fill{height:100%;border-radius:var(--ds-radius-full);background:var(--ds-primary);transition:width var(--ds-duration-normal) var(--ds-ease-standard)}
+/* —— Progress · stage —— */
+.ds-stage-progress{display:flex;align-items:center;gap:var(--ds-space-1)}
+.ds-stage-progress .ds-stage-node{flex:1;display:flex;flex-direction:column;align-items:center;gap:var(--ds-space-1);font-size:var(--ds-text-xs);color:var(--ds-text-muted);text-align:center}
+.ds-stage-progress .ds-stage-dot{width:12px;height:12px;border-radius: var(--ds-radius-full);background:var(--ds-bg-muted);border:2px solid var(--ds-border);transition:all var(--ds-duration-normal) var(--ds-ease-standard)}
+.ds-stage-progress .ds-stage-node.is-complete .ds-stage-dot{background:var(--ds-success);border-color:var(--ds-success)}
+.ds-stage-progress .ds-stage-node.is-complete{color:var(--ds-text-secondary)}
+.ds-stage-progress .ds-stage-node.is-current .ds-stage-dot{background:var(--ds-primary);border-color:var(--ds-primary);box-shadow:0 0 0 4px var(--ds-primary-soft)}
+.ds-stage-progress .ds-stage-node.is-current{color:var(--ds-primary);font-weight:var(--ds-weight-semibold)}
+.ds-stage-progress .ds-stage-node.is-locked .ds-stage-dot{background:var(--ds-bg-muted);opacity:.5}
+.ds-stage-progress .ds-stage-node.is-upcoming .ds-stage-dot{border-style:dashed}
+/* —— Icon —— */
+.ds-icon{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;vertical-align:middle}
+.ds-icon-sm{width:16px;height:16px;stroke-width:1.8}
+.ds-icon-md{width:20px;height:20px}
+.ds-icon-lg{width:28px;height:28px}
+
+/* —— Modal Foundation（STEP 4；基座类，业务 DOM/事件不动） —— */
+.ds-modal-overlay{position:fixed;inset:0;background:rgba(19,78,74,.5);backdrop-filter:blur(5px);display:none;align-items:center;justify-content:center;z-index:var(--ds-z-overlay);padding:var(--ds-space-5)}
+.ds-modal-overlay.show{display:flex}
+.ds-modal{background:var(--ds-bg-surface);border-radius:var(--ds-radius-lg);padding:var(--ds-space-6);max-width:var(--ds-modal-m);width:100%;box-shadow:var(--ds-shadow-modal);text-align:center;max-height:88vh;overflow-y:auto;border:1px solid var(--ds-border)}
+.ds-modal-s{max-width:var(--ds-modal-s)}
+.ds-modal-m{max-width:var(--ds-modal-m)}
+.ds-modal-l{max-width:var(--ds-modal-l)}
+.ds-modal-xl{max-width:var(--ds-modal-xl)}
+.ds-modal-full{max-width:var(--ds-modal-full);width:96vw}
+.ds-modal-header{display:flex;align-items:flex-start;justify-content:space-between;gap:var(--ds-space-3);margin-bottom:var(--ds-space-2)}
+.ds-modal-title{font-family:var(--ds-font-display);font-size:var(--ds-text-xl);font-weight:var(--ds-weight-bold);line-height:var(--ds-leading-tight)}
+.ds-modal-subtitle{font-size:var(--ds-text-sm);color:var(--ds-text-muted);margin-top:2px}
+.ds-modal-body{line-height:var(--ds-leading-normal)}
+.ds-modal-footer{display:flex;justify-content:center;gap:var(--ds-space-2);margin-top:var(--ds-space-4);flex-wrap:wrap}
+.ds-modal-close{width:34px;height:34px;border-radius:var(--ds-radius-sm);background:var(--ds-bg-muted);color:var(--ds-text-secondary);display:inline-flex;align-items:center;justify-content:center;font-size:1rem;cursor:pointer;border:1px solid var(--ds-border-subtle);transition:background var(--ds-duration-fast) var(--ds-ease-standard),color var(--ds-duration-fast) var(--ds-ease-standard)}
+.ds-modal-close:hover{background:var(--ds-primary-soft);color:var(--ds-primary)}
+.ds-modal-close:focus-visible{outline:2px solid var(--ds-primary);outline-offset:2px}
+@media (max-width:640px){.ds-modal{max-width:calc(100vw - 24px)}}
+
+/* —— Header（STEP 5） —— */
+.ds-header-nav{display:flex;align-items:center;gap:var(--ds-space-1);margin:0 auto}
+.ds-header-nav a{display:inline-flex;align-items:center;height:36px;padding:0 var(--ds-space-3);border-radius:var(--ds-radius-md);font-family:var(--ds-font-sans);font-size:var(--ds-text-sm);font-weight:var(--ds-weight-medium);color:var(--ds-text-secondary);text-decoration:none;white-space:nowrap;transition:color var(--ds-duration-fast) var(--ds-ease-standard),background var(--ds-duration-fast) var(--ds-ease-standard)}
+.ds-header-nav a:hover{color:var(--ds-text);background:var(--ds-bg-muted)}
+.ds-header-nav a.is-active{color:var(--ds-primary);background:var(--ds-primary-soft);font-weight:var(--ds-weight-semibold);box-shadow:inset 0 -2px 0 var(--ds-primary)}
+.ds-brand{display:flex;align-items:center;gap:var(--ds-space-2);font-family:var(--ds-font-display);font-size:var(--ds-text-lg);font-weight:var(--ds-weight-bold);color:var(--ds-text);text-decoration:none;letter-spacing:.02em;white-space:nowrap}
+@media (max-width:720px){.ds-header-nav{display:none}}
+/* ============ [P2·STEP6] Home 学习空间页面样式（Light） ============ */
+body{background:var(--ds-bg);color:var(--ds-text);font-family:var(--ds-font-sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit}
+/* Header（STEP 5 结构，亮色） */
+header{position:fixed;top:0;left:0;right:0;z-index:50;padding-top:8px}
+.nav{margin:0 auto;max-width:80rem;border-radius:var(--ds-radius-xl);padding:12px 20px;display:flex;align-items:center;justify-content:space-between;gap:20px;transition:background .3s ease,box-shadow .3s ease,backdrop-filter .3s ease}
+.nav.scrolled{background:color-mix(in srgb,var(--ds-bg-surface) 84%,transparent);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);box-shadow:var(--ds-shadow-md)}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:var(--ds-font-display);font-weight:800;letter-spacing:.04em;font-size:17px;color:var(--ds-text);white-space:nowrap}
+.logo .seed{width:26px;height:26px;border-radius: var(--ds-radius-full);background:linear-gradient(135deg,#E8C98A,#B98A3A);display:flex;align-items:center;justify-content:center;font-size:14px}
+.menu{display:none;align-items:center;gap:4px;list-style:none;font-size:14px;margin:0 auto}
+.menu a{display:inline-flex;align-items:center;height:36px;padding:0 14px;border-radius:var(--ds-radius-md);text-decoration:none;color:var(--ds-text-secondary);transition:color .15s,background .15s;font-weight:500}
+.menu a:hover{color:var(--ds-text);background:var(--ds-bg-muted)}
+.menu a.is-active{color:var(--ds-primary);background:var(--ds-primary-soft);font-weight:600;box-shadow:inset 0 -2px 0 var(--ds-primary)}
+.nav-actions{display:none;align-items:center;gap:10px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:10px 22px;border-radius:var(--ds-radius-md);font-size:14px;font-weight:700;letter-spacing:.04em;text-decoration:none;cursor:pointer;border:1px solid transparent;transition:transform .15s ease,box-shadow .15s ease,background .15s ease,color .15s ease}
+.btn:hover{transform:translateY(-1px)}
+.btn-primary{background:var(--ds-primary);color:#fff;box-shadow:var(--ds-shadow-sm)}
+.btn-primary:hover{background:var(--ds-primary-hover)}
+.btn-ghost{border-color:var(--ds-border);color:var(--ds-text-secondary);background:var(--ds-bg-surface)}
+.btn-ghost:hover{background:var(--ds-bg-muted);color:var(--ds-text)}
+.burger{display:block;background:none;border:none;cursor:pointer;color:var(--ds-text-secondary);padding:8px}
+.burger svg{display:block}
+.mobile-menu{display:none;position:fixed;top:72px;left:16px;right:16px;z-index:49;background:var(--ds-bg-surface);backdrop-filter:blur(20px);border:1px solid var(--ds-border);border-radius:var(--ds-radius-lg);padding:12px 8px;box-shadow:var(--ds-shadow-lg)}
+.mobile-menu.open{display:block}
+.mobile-menu a{display:block;padding:13px 20px;border-radius:var(--ds-radius-md);text-decoration:none;color:var(--ds-text-secondary);font-size:15px}
+.mobile-menu a:hover{background:var(--ds-bg-muted);color:var(--ds-text)}
+.mobile-menu a.is-active{color:var(--ds-primary);background:var(--ds-primary-soft);font-weight:600}
+.mobile-menu .btn{margin:8px 14px 6px;width:calc(100% - 28px)}
+/* Hero（学习空间第一视觉层） */
+.hero{position:relative;min-height:74vh;display:flex;align-items:center;justify-content:center;overflow:hidden;margin-top:66px;border-radius:0 0 var(--ds-radius-xl) var(--ds-radius-xl)}
+.hero-video-wrap{position:absolute;inset:0}
+.hero-video-wrap video{width:100%;height:100%;object-fit:cover;opacity:.38}
+.hero-shade{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(247,250,247,.9) 0%,rgba(247,250,247,.6) 46%,rgba(247,250,247,.97) 100%)}
+.hero-stage-visual{position:absolute;right:5%;bottom:0;width:min(300px,30vw);pointer-events:none;opacity:.95;filter:drop-shadow(0 18px 30px rgba(15,23,42,.18))}
+.hero-content{position:relative;z-index:2;text-align:center;padding:8vh 6vw 7vh;max-width:66rem;width:100%}
+.hero-eyebrow{font-size:12px;letter-spacing:.34em;color:var(--ds-primary);font-weight:600;margin-bottom:18px}
+.hero-badge-row{display:flex;justify-content:center;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+.hero-stage-name{font-family:var(--ds-font-display);font-size:clamp(38px,5.6vw,68px);font-weight:800;line-height:1.12;color:var(--ds-text);letter-spacing:.01em}
+.hero-meta{display:flex;justify-content:center;gap:8px;margin-top:14px;flex-wrap:wrap}
+.hero-progress{max-width:420px;margin:14px auto 0}
+.hero-desc{margin:16px auto 0;max-width:36rem;font-size:clamp(14px,1.6vw,17px);line-height:1.8;color:var(--ds-text-secondary)}
+.hero-cta{margin-top:30px;display:flex;flex-direction:column;align-items:center;gap:12px}
+.hero-cta .btn{font-size:15px;padding:14px 32px}
+.hero-note{margin-top:26px;font-size:12px;letter-spacing:.12em;color:var(--ds-text-muted)}
+/* Hub sections */
+.hub{max-width:1200px;margin:0 auto;padding:0 24px 52px;display:flex;flex-direction:column;gap:40px}
+.section-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px;flex-wrap:wrap}
+.section-title{font-family:var(--ds-font-display);font-size:var(--ds-text-2xl);font-weight:700;color:var(--ds-text);display:flex;align-items:center;gap:10px;letter-spacing:.01em}
+.hub-progress{gap:2px}
+.hub-progress .ds-stage-node{position:relative}
+.hub-progress .ds-stage-node:not(:first-child)::before{content:"";position:absolute;top:6px;right:50%;width:100%;height:2px;background:var(--ds-border);z-index:0}
+.hub-progress .ds-stage-node .ds-stage-dot{position:relative;z-index:1;background:var(--ds-bg-surface)}
+.hub-grid{display:grid;grid-template-columns:2fr 1fr;gap:20px;align-items:start}
+/* Mission */
+#missionSec{display:flex;flex-direction:column;gap:10px}
+.mission-title{font-family:var(--ds-font-display);font-size:var(--ds-text-xl);font-weight:700;color:var(--ds-text);display:flex;align-items:center;gap:10px}
+.mission-label{color:var(--ds-text-secondary);font-size:var(--ds-text-md);line-height:1.6;font-weight:600}
+.mission-why{margin-top:4px;color:var(--ds-text-secondary);font-size:var(--ds-text-sm);line-height:1.7;padding:12px 14px;border-radius:var(--ds-radius-md);background:var(--ds-bg-muted)}
+.mission-why b{color:var(--ds-accent)}
+.mission-cta{margin-top:14px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+/* Status */
+#statusSec{display:flex;flex-direction:column;gap:14px}
+.status-group{background:var(--ds-bg-surface);border:1px solid var(--ds-border);border-left:4px solid var(--ds-info);border-radius:var(--ds-radius-lg);padding:14px 16px;box-shadow:var(--ds-shadow-xs)}
+.status-group h3{font-size:var(--ds-text-sm);font-weight:700;color:var(--ds-text);display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.status-group.env{border-left-color:var(--ds-info)}
+.status-group.nut{border-left-color:var(--ds-success)}
+.status-group.risk{border-left-color:var(--ds-warning)}
+.status-row{display:flex;justify-content:space-between;align-items:center;font-size:var(--ds-text-sm);padding:5px 0;border-bottom:1px dashed var(--ds-border-subtle)}
+.status-row:last-child{border-bottom:none}
+.status-row .k{color:var(--ds-text-secondary)}
+.status-row .v{font-weight:600;color:var(--ds-text)}
+.status-row .sem{font-size:var(--ds-text-xs);color:var(--ds-text-muted);margin-left:8px;font-weight:400}
+/* Recommended */
+.reco-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.reco{display:flex;flex-direction:column;gap:10px;text-decoration:none;align-items:flex-start}
+.reco h3{font-family:var(--ds-font-display);font-size:var(--ds-text-lg);font-weight:700;color:var(--ds-text)}
+.reco p{font-size:var(--ds-text-sm);color:var(--ds-text-secondary);line-height:1.7;margin:0}
+.reco .ds-badge{margin-top:auto}
+/* AI entry */
+.ai-entry{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;background:linear-gradient(120deg,var(--ds-bg-surface),var(--ds-primary-soft));border-left:4px solid var(--ds-primary)}
+.ai-entry p{margin:8px 0 0;color:var(--ds-text-secondary);font-size:var(--ds-text-sm);line-height:1.7;max-width:34rem}
+/* Quick nav */
+.quick-nav{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+/* Proverbs（文化点缀，弱化） */
+.proverbs{padding:8px 0 4px}
+.proverbs-label{text-align:center;font-size:11px;letter-spacing:.3em;color:var(--ds-text-muted);margin-bottom:16px}
+.slider-wrap{position:relative;overflow:hidden}
+.slider{display:flex;gap:72px;width:max-content;padding:0 48px;animation:slide 46s linear infinite}
+.slider:hover{animation-play-state:paused}
+.slider span{font-size:15px;font-weight:600;letter-spacing:.08em;color:var(--ds-text-muted);white-space:nowrap;display:flex;align-items:center;gap:10px}
+.slider span::before{content:"❋";color:var(--ds-accent);font-size:.7em}
+@keyframes slide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.fade-l,.fade-r{position:absolute;top:0;bottom:0;width:100px;z-index:2;pointer-events:none}
+.fade-l{left:0;background:linear-gradient(to right,var(--ds-bg),transparent)}
+.fade-r{right:0;background:linear-gradient(to left,var(--ds-bg),transparent)}
+/* Footer */
+footer{text-align:center;padding:26px 20px 40px;font-size:12px;color:var(--ds-text-muted);letter-spacing:.08em}
+footer a{color:var(--ds-text-secondary);text-decoration:none}
+footer a:hover{color:var(--ds-primary)}
+/* Responsive */
+@media (min-width:900px){.menu{display:flex}.nav-actions{display:flex}.burger{display:none}.hero-cta{flex-direction:row;justify-content:center}}
+@media (max-width:900px){.hub-grid{grid-template-columns:1fr}.reco-grid{grid-template-columns:1fr 1fr}}
+@media (max-width:640px){.reco-grid{grid-template-columns:1fr}.hero-stage-visual{display:none}.hub{padding:0 16px 40px}.hero{min-height:70vh}}
+@media (prefers-reduced-motion:reduce){.slider{animation:none}}
+
+/* [P2·STEP7.4] 全局键盘焦点环（仅键盘触发；不覆盖既有更具体规则） */
+:focus-visible{outline:2px solid var(--ds-primary);outline-offset:2px}
+button:disabled,input:disabled,select:disabled,textarea:disabled{cursor:not-allowed}
+</style>
+</head>
+<body>
+<header>
+  <nav class="nav" id="nav">
+    <a class="logo" href="home.html"><span class="seed">🌾</span>冬小麦生长模拟器</a>
+    <ul class="menu">
+      <li><a href="home.html" class="is-active">学习空间</a></li>
+      <li><a href="journey.html">知识路径</a></li>
+      <li><a href="index-v2.html">模拟实验</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a class="btn btn-ghost" href="journey.html">知识路径</a>
+      <a class="btn btn-primary" href="index-v2.html?from=home">开始种植</a>
+    </div>
+    <button class="burger" id="burger" aria-label="打开菜单">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+  </nav>
+</header>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="home.html" class="is-active">🌱 学习空间</a>
+  <a href="journey.html">📖 知识路径</a>
+  <a href="index-v2.html">🌾 模拟实验</a>
+  <a class="btn btn-primary" href="index-v2.html?from=home">开始种植 →</a>
+</div>
+
+<main>
+  <!-- 学习空间 Hero：当前生长状态为第一视觉层 -->
+  <section class="hero">
+    <div class="hero-video-wrap">
+      <video autoplay loop muted playsinline id="heroVideo" preload="metadata" poster="assets/wheat-hero-poster.webp"></video>
+    </div>
+    <div class="hero-shade"></div>
+    <img class="hero-stage-visual" id="heroStageImg" alt="当前阶段" draggable="false">
+    <div class="hero-content" id="heroContent"><!-- 由 getHomeSnapshot() 只读渲染 --></div>
+  </section>
+  <div class="hub">
+    <!-- 学习进度 -->
+    <section class="ds-card" id="progressSec">
+      <div class="section-head">
+        <h2 class="section-title"><svg class="ds-icon" viewBox="0 0 24 24"><path d="M12 2.7S5 10.3 5 15a7 7 0 0 0 14 0c0-4.7-7-12.3-7-12.3z"/></svg>生长学习进度</h2>
+        <span class="ds-badge ds-badge-stage" id="progressBadge">第 1 / 8 阶段</span>
+      </div>
+      <div class="ds-stage-progress hub-progress" id="stageProgress"></div>
+    </section>
+    <div class="hub-grid">
+      <!-- 今日任务 -->
+      <section class="ds-card ds-card-mission" id="missionSec"></section>
+      <!-- 生长状态 -->
+      <section id="statusSec">
+        <h2 class="section-title" style="margin-bottom:12px"><svg class="ds-icon" viewBox="0 0 24 24"><path d="M12 21c-1 0-1-6-3-9-1.5-2.2-3-3-5-3.5"/><path d="M12 21c1 0 1-6 3-9 1.5-2.2 3-3 5-3.5"/><path d="M12 21v-8"/></svg>生长状态</h2>
+        <div class="status-group env" id="envGroup"></div>
+        <div class="status-group nut" id="nutGroup"></div>
+        <div class="status-group risk" id="riskGroup"></div>
+      </section>
+    </div>
+    <!-- 推荐学习 -->
+    <section id="recommendSec">
+      <div class="section-head"><h2 class="section-title"><svg class="ds-icon" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V2H6.5A2.5 2.5 0 0 0 4 4.5v15zM4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/></svg>推荐学习</h2></div>
+      <div class="reco-grid">
+        <a class="ds-card ds-card-interactive reco" href="journey.html"><h3>阶段知识</h3><p>当前阶段小麦为什么这样生长？滚动观看冬小麦的一生。</p><span class="ds-badge ds-badge-stage">知识路径</span></a>
+        <a class="ds-card ds-card-interactive reco" href="index-v2.html"><h3>病害图鉴</h3><p>认识当前阶段容易出现的病害与防治方法。</p><span class="ds-badge ds-badge-info">病害图鉴</span></a>
+        <a class="ds-card ds-card-interactive reco" href="journey.html"><h3>农事知识</h3><p>水肥管理与关键农事操作背后的为什么。</p><span class="ds-badge ds-badge-success">知识路径</span></a>
+        <a class="ds-card ds-card-interactive reco" href="index-v2.html"><h3>📊 学习成果</h3><p>查看你的学习进度、掌握情况与学习报告。</p><span class="ds-badge ds-badge-stage">学习档案</span></a>
+      </div>
+    </section>
+    <!-- AI 农艺师入口 -->
+    <section class="ds-card ai-entry" id="aiSec">
+      <div>
+        <h2 class="section-title"><svg class="ds-icon" viewBox="0 0 24 24"><path d="M12 3l1.9 5.6L19.5 10l-5.6 1.9L12 17.5l-1.9-5.6L4.5 10l5.6-1.4L12 3z"/><path d="M19 15l.9 2.6L22.5 18l-2.6.9L19 21.5l-.9-2.6L15.5 18l2.6-.9L19 15z"/></svg>AI 农艺师</h2>
+        <p id="aiGreeting">关于当前生长阶段、水肥管理或病害，随时可以问我。</p>
+      </div>
+      <a class="ds-btn ds-btn-primary" href="index-v2.html">问问农艺师 →</a>
+    </section>
+    <!-- 快速导航 -->
+    <nav class="quick-nav">
+      <a class="ds-btn ds-btn-primary" href="index-v2.html?from=home">继续种植</a>
+      <a class="ds-btn ds-btn-secondary" href="journey.html">探索知识路径</a>
+      <a class="ds-btn ds-btn-ghost" href="index-v2.html">进入模拟实验</a>
+    </nav>
+    <!-- 农谚（文化点缀） -->
+    <section class="proverbs">
+      <p class="proverbs-label">流传千年的种麦智慧</p>
+      <div class="slider-wrap">
+        <div class="slider" id="slider"></div>
+        <div class="fade-l"></div>
+        <div class="fade-r"></div>
+      </div>
+    </section>
+    <footer>
+      冬小麦学习空间 · <a href="journey.html">知识路径</a> · <a href="index-v2.html">模拟实验</a><br>
+      单文件 · 离线优先 · 课堂演示友好
+    </footer>
+  </div>
+</main>
+<script src="assets/anime.min.js"></script>
+<script>
+(function () {
+  'use strict';
+  const A = AnimeJS;
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ============ [P2·STEP6] 只读 Home 视图模型（禁止写 localStorage / 改业务状态） ============ */
+  /* 阶段/任务最小只读映射（镜像 index-v2 stages 数据；单文件架构无法共享，仅映射展示） */
+  const HOME_STAGES = [
+    { name:"播种期", short:"播种", desc:"精选良种，适期播种。土壤墒情要好，播种深度3-5厘米。", emoji:"🌱" },
+    { name:"出苗期", short:"出苗", desc:"种子吸水膨胀，胚根伸出。注意保持土壤湿润，确保苗齐苗壮。", emoji:"🌿" },
+    { name:"分蘖期", short:"分蘖", desc:"小麦长出分蘖，是决定亩穗数的关键时期。需施分蘖肥，促弱控旺。", emoji:"🌾" },
+    { name:"越冬期", short:"越冬", desc:"小麦停止生长，进入休眠。注意防冻保暖，适时浇越冬水。", emoji:"❄️" },
+    { name:"返青期", short:"返青", desc:"气温回升，小麦开始恢复生长。需追施返青肥，中耕松土。", emoji:"☀️" },
+    { name:"拔节期", short:"拔节", desc:"茎秆迅速伸长。这是需水需肥的高峰期，也是防病虫的关键期。", emoji:"📈" },
+    { name:"抽穗开花期", short:"抽穗", desc:"麦穗抽出，开花授粉。注意防干热风和赤霉病。", emoji:"🌸" },
+    { name:"成熟期", short:"成熟", desc:"籽粒变硬，颜色变黄。适时收获，避免穗上发芽，确保颗粒归仓。", emoji:"🌟" }
+  ];
+  const TOTAL_DAYS = 242; /* README：黄淮海麦区约 242 天 */
+  const STAGE_TASKS = [
+    { label:"保持土壤墒情", why:"播种期需要良好墒情，保障出苗整齐。", key:"water" },
+    { label:"保持土壤湿润", why:"出苗期水分充足，苗齐苗壮。", key:"water" },
+    { label:"施分蘖肥（氮肥）", why:"分蘖期是决定亩穗数的关键时期，氮素促蘖。", key:"nFert" },
+    { label:"浇越冬水", why:"越冬水防冻保墒、稳定地温，安全越冬。", key:"water" },
+    { label:"追施返青肥", why:"返青期恢复生长，需要养分支持。", key:"nFert" },
+    { label:"水肥充足 + 防病虫", why:"拔节期是需水需肥高峰，也是防病关键期。", key:"vent" },
+    { label:"防干热风 / 赤霉病", why:"抽穗开花期注意扬花初期「见花打药」与补水通风。", key:"vent" },
+    { label:"适时收获", why:"成熟期避免穗上发芽，颗粒归仓。", key:"water" }
+  ];
+  const WEATHER_LABEL = { "☀️":"晴","⛅":"多云","🌧️":"雨","⛈️":"雷雨" };
+
+  /* [P2·STEP4.2] WebP 能力探测（模块级缓存，不写 localStorage） */
+  let __webpSupport = null;
+  function supportsWebP(){
+    if(__webpSupport === null){
+      try{ const __c = document.createElement("canvas"); __webpSupport = __c.toDataURL("image/webp").indexOf("data:image/webp") === 0; }
+      catch(e){ __webpSupport = false; }
+    }
+    return __webpSupport;
+  }
+  const __homePreloaded = {};
+  /* 预加载当前 + 下一阶段图（webp 优先；无存档预热 stage1/2，不视为已开始游戏） */
+  function preloadHomeImages(){
+    const snap = getHomeSnapshot();
+    const list = snap.hasSave ? [snap.stage+1, snap.stage+2] : [1, 2];
+    const ext = supportsWebP() ? "webp" : "png";
+    list.forEach(function(n){
+      if(n < 1 || n > 8) return;
+      const src = "wheat/figures-cutout/stage" + n + "." + ext;
+      if(__homePreloaded[src]) return;
+      __homePreloaded[src] = true;
+      const im = new Image();
+      im.src = src;
+    });
+  }
+
+  /* 只读快照：仅 getItem，绝不 setItem/removeItem/clear */
+  function getHomeSnapshot(){
+    try{
+      const raw = localStorage.getItem("wheatGameV3");
+      if(!raw) return { hasSave:false };
+      const s = JSON.parse(raw);
+      if(!s || typeof s.stage !== "number" || s.stage < 0 || s.stage > 7) return { hasSave:false };
+      const st = HOME_STAGES[s.stage];
+      const pests = [s.currentPest, s.currentPest2].filter(Boolean);
+      return {
+        hasSave:true, stage:s.stage, stageName:st.name, stageShort:st.short, stageDesc:st.desc, stageEmoji:st.emoji,
+        day:(typeof s.day === "number") ? s.day : 1,
+        stageImg:"wheat/figures-cutout/stage" + (s.stage+1) + ".png",
+        env:{ temp:s.temp, water:s.water, light:s.light, weather:s.weather || "☀️" },
+        nutrition:{ n:s.n, p:s.p, k:s.k, fert:s.fert },
+        risk:{ health:s.health, flooded:!!s.flooded, pests:pests, pestNames:pests.map(function(p){ return p.name || p.id || "病害"; }) },
+        task:(s.tasks && typeof s.tasks === "object") ? s.tasks : {},
+        ach:Array.isArray(s.ach) ? s.ach.length : 0
+      };
+    }catch(e){ return { hasSave:false }; }
+  }
+  /* 中性语义（基于数据范围的保守表达，不做精确农学断言） */
+  function semLevel(v, low, high){ if(typeof v !== "number") return ""; if(v < low) return "偏低"; if(v > high) return "偏高"; return "适中"; }
+  function semHealth(v){ if(typeof v !== "number") return ""; return v < 60 ? "需要关注" : "良好"; }
+
+  function renderHub(){
+    const snap = getHomeSnapshot();
+    const hero = document.getElementById("heroContent");
+    const stageImg = document.getElementById("heroStageImg");
+    if(!snap.hasSave){
+      hero.innerHTML =
+        "<p class=\"hero-eyebrow\">学习空间</p>" +
+        "<h1 class=\"hero-stage-name\">开始你的第一季冬小麦</h1>" +
+        "<p class=\"hero-desc\">从播种开始，逐步观察 8 个生育阶段，理解每一次农事决策为什么重要。</p>" +
+        "<div class=\"hero-cta\"><a class=\"btn btn-primary\" href=\"index-v2.html\">开始第一季</a><a class=\"btn btn-ghost\" href=\"journey.html\">先了解冬小麦的一生</a></div>";
+      if(stageImg) stageImg.style.display = "none";
+      document.getElementById("progressBadge").textContent = "尚未开始";
+      document.getElementById("stageProgress").innerHTML = "";
+      document.getElementById("missionSec").innerHTML =
+        "<span class=\"ds-badge ds-badge-stage\" style=\"align-self:flex-start\">学习任务</span>" +
+        "<p class=\"mission-label\">还没有进行中的任务</p>" +
+        "<p class=\"mission-why\"><b>下一步：</b>从播种开始，开始你的第一季冬小麦。</p>" +
+        "<div class=\"mission-cta\"><a class=\"ds-btn ds-btn-primary\" href=\"index-v2.html\">开始第一季 →</a></div>";
+      document.getElementById("envGroup").innerHTML = "<h3>🌤 环境</h3><p style=\"color:var(--ds-text-muted);font-size:var(--ds-text-sm)\">暂无数据</p>";
+      document.getElementById("nutGroup").innerHTML = "<h3>🧪 营养</h3><p style=\"color:var(--ds-text-muted);font-size:var(--ds-text-sm)\">暂无数据</p>";
+      document.getElementById("riskGroup").innerHTML = "<h3>⚠️ 风险</h3><p style=\"color:var(--ds-text-muted);font-size:var(--ds-text-sm)\">暂无数据</p>";
+      document.getElementById("aiGreeting").textContent = "还没有种植记录——开始第一季后，农艺师会结合你的阶段给出建议。";
+      return;
+    }
+    /* Hero */
+    hero.innerHTML =
+      "<p class=\"hero-eyebrow\">学习空间</p>" +
+      "<div class=\"hero-badge-row\"><span class=\"ds-badge ds-badge-stage\">" + snap.stageEmoji + " " + snap.stageName + " · 第 " + (snap.stage+1) + " / 8 阶段</span></div>" +
+      "<h1 class=\"hero-stage-name\">你的冬小麦正在生长</h1>" +
+      "<div class=\"hero-meta\"><span class=\"ds-badge ds-badge-muted\">第 " + snap.day + " 天 / 约 " + TOTAL_DAYS + " 天</span></div>" +
+      "<div class=\"ds-progress hero-progress\"><div class=\"ds-progress-track\"><div class=\"ds-progress-fill\" style=\"width:" + Math.min(100, Math.round(snap.day/TOTAL_DAYS*100)) + "%\"></div></div></div>" +
+      "<p class=\"hero-desc\">" + snap.stageDesc + "</p>" +
+      "<div class=\"hero-cta\"><a class=\"ds-btn ds-btn-primary\" href=\"index-v2.html?from=home\">继续种植</a><a class=\"ds-btn ds-btn-secondary\" href=\"journey.html\">查看生长路径</a></div>";
+    if(stageImg){
+      stageImg.style.display = "";
+      stageImg.__triedPng = false;
+      const webpSrc = "wheat/figures-cutout/stage" + (snap.stage+1) + ".webp";
+      stageImg.onerror = function(){
+        if(!stageImg.__triedPng){
+          stageImg.__triedPng = true;
+          stageImg.src = snap.stageImg; /* WebP 失败 → PNG 重试一次 */
+          return;
+        }
+        stageImg.style.display = "none";
+      };
+      stageImg.src = supportsWebP() ? webpSrc : snap.stageImg;
+    }
+    /* Progress */
+    document.getElementById("progressBadge").textContent = "第 " + (snap.stage+1) + " / 8 阶段";
+    document.getElementById("stageProgress").innerHTML = HOME_STAGES.map(function(st, i){
+      var cls = i < snap.stage ? "is-complete" : (i === snap.stage ? "is-current" : "is-upcoming");
+      return "<div class=\"ds-stage-node " + cls + "\"><span class=\"ds-stage-dot\"></span><span>" + st.short + "</span></div>";
+    }).join("");
+    /* Mission */
+    var t = STAGE_TASKS[snap.stage];
+    var done = (snap.task[t.key] || 0) > 0;
+    document.getElementById("missionSec").innerHTML =
+      "<span class=\"ds-badge " + (done ? "ds-badge-success" : "ds-badge-stage") + "\" style=\"align-self:flex-start\">" + (done ? "进行中" : "学习任务") + "</span>" +
+      "<p class=\"mission-label\">" + t.label + "</p>" +
+      "<p class=\"mission-why\"><b>为什么？</b>" + t.why + "</p>" +
+      "<div class=\"mission-cta\"><a class=\"ds-btn ds-btn-primary\" href=\"index-v2.html\">去完成 →</a></div>";
+    /* Status */
+    var env = snap.env, nut = snap.nutrition, risk = snap.risk;
+    document.getElementById("envGroup").innerHTML =
+      "<h3>🌤 环境</h3>" +
+      row("温度", env.temp + "°C", "影响生长速度") +
+      row("水分", env.water + "%", "保持根系活力") +
+      row("光照", env.light + "%", "光合作用基础") +
+      row("天气", WEATHER_LABEL[env.weather] || env.weather, "");
+    document.getElementById("nutGroup").innerHTML =
+      "<h3>🧪 营养</h3>" +
+      row("氮 N", nut.n, "叶片与分蘖") +
+      row("磷 P", nut.p, "根系与发育") +
+      row("钾 K", nut.k, "壮秆抗逆") +
+      row("肥力", nut.fert + "%", "整体养分状态");
+    document.getElementById("riskGroup").innerHTML =
+      "<h3>⚠️ 风险</h3>" +
+      row("健康", risk.health + "%", semHealth(risk.health)) +
+      row("积水", risk.flooded ? "有风险" : "无积水", "") +
+      row("病害", risk.pests.length ? risk.pestNames.join("、") : "暂无明显病害", "");
+    /* AI greeting */
+    document.getElementById("aiGreeting").textContent = "现在是" + snap.stageName + "。有什么生长问题想一起看看？";
+    function row(k, v, sem){
+      return "<div class=\"status-row\"><span class=\"k\">" + k + "</span><span class=\"v\">" + v + (sem ? "<span class=\"sem\">" + sem + "</span>" : "") + "</span></div>";
+    }
+  }
+
+  /* ============ 既有逻辑：农谚墙 / 导航 / 移动菜单 / 视频回退 ============ */
+  const proverbs = [
+    '瑞雪兆丰年', '白露早,寒露迟,秋分种麦正当时',
+    '麦收八十三场雨', '麦浇苗,谷浇穗', '一喷三防,保穗增产',
+    '九成熟,十成收;十成熟,一成丢', '冬麦要壮,底肥要旺',
+    '人误地一时,地误人一年', '麦子不怕草,就怕坷垃咬'
+  ];
+  const slider = document.getElementById("slider");
+  const buildSlider = () => {
+    slider.innerHTML = "";
+    for (let k = 0; k < 2; k++) {
+      proverbs.forEach(p => { const s = document.createElement("span"); s.textContent = p; slider.appendChild(s); });
+    }
+  };
+  buildSlider();
+
+  const nav = document.getElementById("nav");
+  const onScroll = () => nav.classList.toggle("scrolled", window.scrollY > 40);
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+
+  const burger = document.getElementById("burger");
+  const mobileMenu = document.getElementById("mobileMenu");
+  burger.addEventListener("click", () => mobileMenu.classList.toggle("open"));
+  mobileMenu.addEventListener("click", e => { if (e.target.tagName === "A") mobileMenu.classList.remove("open"); });
+
+  const video = document.getElementById("heroVideo");
+  video.addEventListener("error", () => { video.parentElement.style.display = "none"; });
+
+  /* [P2·STEP4.3] hero 视频仅桌面（>640px）加载：HTML 不写 src，桌面 JS 设置、移动端永不请求（实测：HTML 内联 src 在解析期即触发下载，CSS display:none 与 JS 移除均晚于请求发出；shade 渐变层 + poster 兜底移动端视觉） */
+  if (matchMedia("(min-width: 641px)").matches && video) {
+    video.src = "assets/wheat-hero.mp4";
+  }
+
+  /* Hero 轻量入场（150-300ms；尊重 reduced-motion） */
+  if (reduced) {
+    document.getElementById("heroContent").style.opacity = "1";
+  } else {
+    A.createTimeline({ id: "hub-intro", defaults: { ease: "out(3)" } })
+      .add("#heroContent", { opacity: [0, 1], y: [14, 0], duration: 320 }, 120)
+      .init();
+  }
+
+  renderHub();
+  preloadHomeImages();
+})();
+</script>

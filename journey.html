@@ -1,0 +1,1709 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="darkreader-lock">
+<title>冬小麦的一生 · 滚动教学导览</title>
+<style>
+:root {
+  --bg: #0e100c;
+  --fg: #f5f0e0;
+  --accent: #f2d98a;
+  --dim: rgba(245, 240, 224, .55);
+  --card-bg: rgba(20, 22, 16, .9);
+  --season-bg: #0e100c;
+}
+
+/* ============================================================
+   [P2·DS] Design Token 基座 —— 跨页同源视觉 DNA（PHASE 3 · STEP 1）
+   - 三页共享同一套 --ds-* 令牌；页面主题经 <html data-theme="dark"> 切换
+   - 旧变量保留原值；值一致者经兼容层映射到 --ds-*（不改变现有表现）
+   ============================================================ */
+:root{
+  /* —— Color · 麦苗绿 —— */
+  --ds-green-50:#F0FDF9; --ds-green-100:#CCFBF1; --ds-green-200:#99F6E4; --ds-green-300:#5EEAD4;
+  --ds-green-400:#2DD4BF; --ds-green-500:#14B8A6; --ds-green-600:#0D9488; --ds-green-700:#0F766E;
+  --ds-green-800:#115E59; --ds-green-900:#134E4A;
+  /* —— Color · 小麦金 —— */
+  --ds-gold-50:#FFFBEB; --ds-gold-100:#FEF3C7; --ds-gold-200:#FDE68A; --ds-gold-300:#FCD34D;
+  --ds-gold-400:#FBBF24; --ds-gold-500:#F59E0B; --ds-gold-600:#D97706; --ds-gold-700:#B45309;
+  /* —— Color · 中性 —— */
+  --ds-neutral-0:#FFFFFF; --ds-neutral-50:#F9FAFB; --ds-neutral-100:#F3F4F6; --ds-neutral-200:#E5E7EB;
+  --ds-neutral-300:#D1D5DB; --ds-neutral-400:#9CA3AF; --ds-neutral-500:#6B7280; --ds-neutral-600:#4B5563;
+  --ds-neutral-700:#374151; --ds-neutral-800:#1F2937; --ds-neutral-900:#111827; --ds-neutral-950:#030712;
+  /* —— Semantic —— */
+  --ds-success:#059669; --ds-success-soft:#D1FAE5;
+  --ds-warning:#D97706; --ds-warning-soft:#FEF3C7;
+  --ds-danger:#DC2626; --ds-danger-soft:#FEE2E2;
+  --ds-info:#2563EB; --ds-info-soft:#DBEAFE;
+  /* —— Theme · Light（默认） —— */
+  --ds-bg:#F7FAF7; --ds-bg-elevated:#FFFFFF; --ds-bg-surface:#FFFFFF; --ds-bg-muted:#EFF5F0;
+  --ds-text:#134E4A; --ds-text-secondary:#3E5C57; --ds-text-muted:#6B847E; --ds-text-inverse:#FFFFFF;
+  --ds-border:#E2EBE6; --ds-border-subtle:#EDF3EF;
+  --ds-primary:#0D9488; --ds-primary-hover:#0F766E; --ds-primary-soft:#CCFBF1;
+  --ds-accent:#D97706; --ds-accent-soft:#FEF3C7;
+  /* —— Radius —— */
+  --ds-radius-xs:6px; --ds-radius-sm:8px; --ds-radius-md:12px; --ds-radius-lg:16px; --ds-radius-xl:24px; --ds-radius-full:9999px;
+  /* —— Shadow · Light —— */
+  --ds-shadow-xs:0 1px 2px rgba(15,23,42,.06);
+  --ds-shadow-sm:0 2px 6px rgba(15,23,42,.07);
+  --ds-shadow-md:0 6px 16px rgba(15,23,42,.09);
+  --ds-shadow-lg:0 14px 34px rgba(15,23,42,.12);
+  --ds-shadow-xl:0 24px 60px rgba(15,23,42,.16);
+  /* —— Spacing（4px 基础） —— */
+  --ds-space-1:4px; --ds-space-2:8px; --ds-space-3:12px; --ds-space-4:16px; --ds-space-5:20px;
+  --ds-space-6:24px; --ds-space-8:32px; --ds-space-10:40px; --ds-space-12:48px; --ds-space-16:64px;
+  --ds-space-20:80px; --ds-space-24:96px;
+  /* —— Layout —— */
+  --ds-content-max:1440px; --ds-content-reading:720px; --ds-gutter:24px; --ds-section-gap:64px;
+  /* —— Typography（Step 2 迁移；此处仅建令牌） —— */
+  --ds-font-sans:'PingFang SC','Microsoft YaHei','Noto Sans SC',system-ui,-apple-system,sans-serif;
+  --ds-font-display:'PingFang SC','Microsoft YaHei','Noto Sans SC',system-ui,sans-serif;
+  --ds-font-mono:'SF Mono',ui-monospace,Consolas,monospace;
+  --ds-font-number:'PingFang SC','Microsoft YaHei',system-ui,sans-serif;
+  /* —— Motion —— */
+  --ds-duration-fast:150ms; --ds-duration-normal:220ms; --ds-duration-slow:300ms;
+  --ds-ease-standard:cubic-bezier(.4,0,.2,1); --ds-ease-emphasized:cubic-bezier(.2,.8,.2,1);
+  /* —— Z-index —— */
+  --ds-z-base:0; --ds-z-content:1; --ds-z-sticky:100; --ds-z-dropdown:300; --ds-z-overlay:400;
+  --ds-z-modal:500; --ds-z-toast:600; --ds-z-pet:2147483000;
+  /* —— Typography Scale（STEP 2） —— */
+  --ds-text-xs:12px; --ds-text-sm:14px; --ds-text-md:16px; --ds-text-lg:18px; --ds-text-xl:20px;
+  --ds-text-2xl:24px; --ds-text-3xl:30px; --ds-text-4xl:36px; --ds-text-5xl:48px;
+  --ds-leading-tight:1.2; --ds-leading-snug:1.4; --ds-leading-normal:1.55; --ds-leading-relaxed:1.75;
+  --ds-weight-regular:400; --ds-weight-medium:500; --ds-weight-semibold:600; --ds-weight-bold:700;
+  /* —— Modal（STEP 4） —— */
+  --ds-modal-s:440px; --ds-modal-m:480px; --ds-modal-l:720px; --ds-modal-xl:1060px; --ds-modal-full:96vw;
+  --ds-shadow-modal:0 24px 70px rgba(15,23,42,.22);
+}
+/* —— Theme · Dark（JOURNEY / 暗色区域；<html data-theme="dark"> 启用） —— */
+[data-theme="dark"]{
+  --ds-bg:#0E100C; --ds-bg-elevated:#171A15; --ds-bg-surface:#1B1F19; --ds-bg-muted:#232821;
+  --ds-text:#F5F0E0; --ds-text-secondary:#C9C4B2; --ds-text-muted:rgba(245,240,224,.55); --ds-text-inverse:#0E100C;
+  --ds-border:rgba(245,240,224,.14); --ds-border-subtle:rgba(245,240,224,.08);
+  --ds-primary:#34D399; --ds-primary-hover:#10B981; --ds-primary-soft:rgba(52,211,153,.15);
+  --ds-accent:#F2D98A; --ds-accent-soft:rgba(242,217,138,.16);
+  --ds-shadow-xs:0 1px 2px rgba(0,0,0,.4);
+  --ds-shadow-sm:0 2px 6px rgba(0,0,0,.42);
+  --ds-shadow-md:0 6px 16px rgba(0,0,0,.45);
+  --ds-shadow-lg:0 14px 34px rgba(0,0,0,.5);
+  --ds-shadow-xl:0 24px 60px rgba(0,0,0,.55);
+  --ds-shadow-modal:0 24px 70px rgba(0,0,0,.55);
+}
+
+/* —— Typography 语义层级（STEP 2；新增工具类，旧组件渐进迁移用） —— */
+.ds-display{font-family:var(--ds-font-display);font-size:var(--ds-text-5xl);line-height:var(--ds-leading-tight);font-weight:var(--ds-weight-bold);letter-spacing:.01em}
+.ds-title-xl{font-family:var(--ds-font-display);font-size:var(--ds-text-3xl);line-height:var(--ds-leading-tight);font-weight:var(--ds-weight-bold)}
+.ds-title-lg{font-family:var(--ds-font-display);font-size:var(--ds-text-2xl);line-height:var(--ds-leading-snug);font-weight:var(--ds-weight-semibold)}
+.ds-title-md{font-family:var(--ds-font-display);font-size:var(--ds-text-xl);line-height:var(--ds-leading-snug);font-weight:var(--ds-weight-semibold)}
+.ds-body-lg{font-size:var(--ds-text-lg);line-height:var(--ds-leading-relaxed)}
+.ds-body{font-size:var(--ds-text-md);line-height:var(--ds-leading-normal)}
+.ds-body-sm{font-size:var(--ds-text-sm);line-height:var(--ds-leading-normal)}
+.ds-caption{font-size:var(--ds-text-xs);line-height:var(--ds-leading-snug);color:var(--ds-text-muted)}
+.ds-label{font-size:var(--ds-text-xs);line-height:1.2;font-weight:var(--ds-weight-semibold);letter-spacing:.06em}
+.ds-num{font-family:var(--ds-font-number);font-variant-numeric:tabular-nums}
+
+/* ============================================================
+   [P2·DS] Component Foundation（STEP 3）—— Button / Card / Badge / Progress / Icon
+   纯新增基座：旧类一律不动（兼容层仅语义别名），后续 Step 渐进接入
+   ============================================================ */
+/* —— Button —— */
+.ds-btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:var(--ds-space-2);
+  font-family:var(--ds-font-sans);font-size:var(--ds-text-sm);font-weight:var(--ds-weight-semibold);
+  line-height:1;height:40px;padding:0 var(--ds-space-5);
+  border-radius:var(--ds-radius-md);border:1px solid transparent;cursor:pointer;
+  transition:background var(--ds-duration-fast) var(--ds-ease-standard),border-color var(--ds-duration-fast) var(--ds-ease-standard),color var(--ds-duration-fast) var(--ds-ease-standard),box-shadow var(--ds-duration-fast) var(--ds-ease-standard),transform var(--ds-duration-fast) var(--ds-ease-standard);
+  white-space:nowrap;user-select:none;
+}
+.ds-btn:focus-visible{outline:2px solid var(--ds-primary);outline-offset:2px}
+.ds-btn:disabled{opacity:.55;cursor:not-allowed;pointer-events:none}
+.ds-btn-primary{background:var(--ds-primary);color:var(--ds-text-inverse);box-shadow:var(--ds-shadow-sm)}
+.ds-btn-primary:hover{background:var(--ds-primary-hover)}
+.ds-btn-primary:active{transform:translateY(1px)}
+.ds-btn-secondary{background:var(--ds-bg-surface);color:var(--ds-text);border-color:var(--ds-border)}
+.ds-btn-secondary:hover{border-color:var(--ds-primary);color:var(--ds-primary)}
+.ds-btn-ghost{background:transparent;color:var(--ds-text-secondary)}
+.ds-btn-ghost:hover{background:var(--ds-bg-muted);color:var(--ds-text)}
+.ds-btn-danger{background:var(--ds-danger);color:var(--ds-neutral-0)}
+.ds-btn-danger:hover{filter:brightness(.95)}
+.ds-btn-sm{height:32px;padding:0 var(--ds-space-3);font-size:var(--ds-text-xs)}
+.ds-btn-lg{height:48px;padding:0 var(--ds-space-6);font-size:var(--ds-text-md)}
+.ds-btn-icon{width:40px;height:40px;padding:0;border-radius:var(--ds-radius-md)}
+.ds-btn .ds-icon{width:18px;height:18px}
+/* —— Card —— */
+.ds-card{
+  background:var(--ds-bg-surface);border:1px solid var(--ds-border);border-radius:var(--ds-radius-lg);
+  box-shadow:var(--ds-shadow-sm);padding:var(--ds-space-5);
+}
+.ds-card-teaching{background:var(--ds-primary-soft);border-color:var(--ds-primary);border-left-width:4px;border-left-color:var(--ds-primary)}
+.ds-card-status{border-left-width:4px;border-left-color:var(--ds-info)}
+.ds-card-mission{background:linear-gradient(180deg,var(--ds-bg-surface),var(--ds-bg-muted));border-color:var(--ds-gold-200);border-left-width:4px;border-left-color:var(--ds-gold-600)}
+.ds-card-interactive{transition:box-shadow var(--ds-duration-normal) var(--ds-ease-standard),transform var(--ds-duration-normal) var(--ds-ease-standard)}
+.ds-card-interactive:hover{box-shadow:var(--ds-shadow-md);transform:translateY(-2px)}
+/* —— Badge —— */
+.ds-badge{
+  display:inline-flex;align-items:center;gap:var(--ds-space-1);height:24px;padding:0 var(--ds-space-2);
+  border-radius:var(--ds-radius-full);font-size:var(--ds-text-xs);font-weight:var(--ds-weight-semibold);
+  line-height:1;white-space:nowrap;background:var(--ds-bg-muted);color:var(--ds-text-secondary);
+  border:1px solid var(--ds-border-subtle);
+}
+.ds-badge-stage{background:var(--ds-primary-soft);color:var(--ds-primary)}
+.ds-badge-success{background:var(--ds-success-soft);color:var(--ds-success)}
+.ds-badge-warning{background:var(--ds-warning-soft);color:var(--ds-warning)}
+.ds-badge-danger{background:var(--ds-danger-soft);color:var(--ds-danger)}
+.ds-badge-info{background:var(--ds-info-soft);color:var(--ds-info)}
+.ds-badge-muted{background:var(--ds-bg-muted);color:var(--ds-text-muted)}
+.ds-badge-locked{background:var(--ds-bg-muted);color:var(--ds-text-muted);opacity:.6}
+/* —— Progress · numeric —— */
+.ds-progress{display:flex;flex-direction:column;gap:var(--ds-space-1);width:100%}
+.ds-progress-label{display:flex;justify-content:space-between;font-size:var(--ds-text-xs);color:var(--ds-text-secondary)}
+.ds-progress-track{height:8px;border-radius:var(--ds-radius-full);background:var(--ds-bg-muted);overflow:hidden}
+.ds-progress-fill{height:100%;border-radius:var(--ds-radius-full);background:var(--ds-primary);transition:width var(--ds-duration-normal) var(--ds-ease-standard)}
+/* —— Progress · stage —— */
+.ds-stage-progress{display:flex;align-items:center;gap:var(--ds-space-1)}
+.ds-stage-progress .ds-stage-node{flex:1;display:flex;flex-direction:column;align-items:center;gap:var(--ds-space-1);font-size:var(--ds-text-xs);color:var(--ds-text-muted);text-align:center}
+.ds-stage-progress .ds-stage-dot{width:12px;height:12px;border-radius: var(--ds-radius-full);background:var(--ds-bg-muted);border:2px solid var(--ds-border);transition:all var(--ds-duration-normal) var(--ds-ease-standard)}
+.ds-stage-progress .ds-stage-node.is-complete .ds-stage-dot{background:var(--ds-success);border-color:var(--ds-success)}
+.ds-stage-progress .ds-stage-node.is-complete{color:var(--ds-text-secondary)}
+.ds-stage-progress .ds-stage-node.is-current .ds-stage-dot{background:var(--ds-primary);border-color:var(--ds-primary);box-shadow:0 0 0 4px var(--ds-primary-soft)}
+.ds-stage-progress .ds-stage-node.is-current{color:var(--ds-primary);font-weight:var(--ds-weight-semibold)}
+.ds-stage-progress .ds-stage-node.is-locked .ds-stage-dot{background:var(--ds-bg-muted);opacity:.5}
+.ds-stage-progress .ds-stage-node.is-upcoming .ds-stage-dot{border-style:dashed}
+/* —— Icon —— */
+.ds-icon{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;vertical-align:middle}
+.ds-icon-sm{width:16px;height:16px;stroke-width:1.8}
+.ds-icon-md{width:20px;height:20px}
+.ds-icon-lg{width:28px;height:28px}
+
+/* —— Modal Foundation（STEP 4；基座类，业务 DOM/事件不动） —— */
+.ds-modal-overlay{position:fixed;inset:0;background:rgba(19,78,74,.5);backdrop-filter:blur(5px);display:none;align-items:center;justify-content:center;z-index:var(--ds-z-overlay);padding:var(--ds-space-5)}
+.ds-modal-overlay.show{display:flex}
+.ds-modal{background:var(--ds-bg-surface);border-radius:var(--ds-radius-lg);padding:var(--ds-space-6);max-width:var(--ds-modal-m);width:100%;box-shadow:var(--ds-shadow-modal);text-align:center;max-height:88vh;overflow-y:auto;border:1px solid var(--ds-border)}
+.ds-modal-s{max-width:var(--ds-modal-s)}
+.ds-modal-m{max-width:var(--ds-modal-m)}
+.ds-modal-l{max-width:var(--ds-modal-l)}
+.ds-modal-xl{max-width:var(--ds-modal-xl)}
+.ds-modal-full{max-width:var(--ds-modal-full);width:96vw}
+.ds-modal-header{display:flex;align-items:flex-start;justify-content:space-between;gap:var(--ds-space-3);margin-bottom:var(--ds-space-2)}
+.ds-modal-title{font-family:var(--ds-font-display);font-size:var(--ds-text-xl);font-weight:var(--ds-weight-bold);line-height:var(--ds-leading-tight)}
+.ds-modal-subtitle{font-size:var(--ds-text-sm);color:var(--ds-text-muted);margin-top:2px}
+.ds-modal-body{line-height:var(--ds-leading-normal)}
+.ds-modal-footer{display:flex;justify-content:center;gap:var(--ds-space-2);margin-top:var(--ds-space-4);flex-wrap:wrap}
+.ds-modal-close{width:34px;height:34px;border-radius:var(--ds-radius-sm);background:var(--ds-bg-muted);color:var(--ds-text-secondary);display:inline-flex;align-items:center;justify-content:center;font-size:1rem;cursor:pointer;border:1px solid var(--ds-border-subtle);transition:background var(--ds-duration-fast) var(--ds-ease-standard),color var(--ds-duration-fast) var(--ds-ease-standard)}
+.ds-modal-close:hover{background:var(--ds-primary-soft);color:var(--ds-primary)}
+.ds-modal-close:focus-visible{outline:2px solid var(--ds-primary);outline-offset:2px}
+@media (max-width:640px){.ds-modal{max-width:calc(100vw - 24px)}}
+
+/* —— Header（STEP 5） —— */
+.ds-header-nav{display:flex;align-items:center;gap:var(--ds-space-1);margin:0 auto}
+.ds-header-nav a{display:inline-flex;align-items:center;height:36px;padding:0 var(--ds-space-3);border-radius:var(--ds-radius-md);font-family:var(--ds-font-sans);font-size:var(--ds-text-sm);font-weight:var(--ds-weight-medium);color:var(--ds-text-secondary);text-decoration:none;white-space:nowrap;transition:color var(--ds-duration-fast) var(--ds-ease-standard),background var(--ds-duration-fast) var(--ds-ease-standard)}
+.ds-header-nav a:hover{color:var(--ds-text);background:var(--ds-bg-muted)}
+.ds-header-nav a.is-active{color:var(--ds-primary);background:var(--ds-primary-soft);font-weight:var(--ds-weight-semibold);box-shadow:inset 0 -2px 0 var(--ds-primary)}
+.ds-brand{display:flex;align-items:center;gap:var(--ds-space-2);font-family:var(--ds-font-display);font-size:var(--ds-text-lg);font-weight:var(--ds-weight-bold);color:var(--ds-text);text-decoration:none;letter-spacing:.02em;white-space:nowrap}
+@media (max-width:720px){.ds-header-nav{display:none}}
+/* —— [P2·DS] 旧变量兼容层（值一致才映射；不改变现有表现） —— */
+:root{
+  --bg: var(--ds-bg);
+  --fg: var(--ds-text);
+  --accent: var(--ds-accent);
+  --dim: var(--ds-text-muted);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: auto; }
+body {
+  background-color: var(--bg);
+  color: var(--fg);
+  font-family: "Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+body::before {
+  content: "";
+  position: fixed; inset: 0;
+  background:
+    radial-gradient(60vmax 60vmax at 85% -10%, color-mix(in srgb, var(--accent) 14%, transparent), transparent 60%),
+    radial-gradient(50vmax 50vmax at -10% 110%, color-mix(in srgb, var(--accent) 10%, transparent), transparent 55%);
+  pointer-events: none; z-index: 0;
+}
+.page { position: relative; z-index: 1; }
+
+/* ===== 顶部 ===== */
+#site-header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 18px 28px;
+  background: linear-gradient(to bottom, rgba(0,0,0,.35), transparent);
+  pointer-events: none;
+}
+#site-header .ds-header-nav{pointer-events:auto}
+.header-title { font-weight: 700; letter-spacing: .12em; font-size: 15px; display: flex; align-items: center; gap: 10px; }
+.header-title .seed-dot { width: 10px; height: 10px; border-radius: var(--ds-radius-full); background: var(--accent); display: inline-block; transition: background .2s linear; }
+#season-label { font-size: 13px; color: var(--dim); letter-spacing: .2em; }
+.header-right { display: flex; align-items: center; gap: 14px; pointer-events: auto; }
+#autoplay-btn {
+  pointer-events: auto; cursor: pointer;
+  font-family: inherit; font-size: 12px; letter-spacing: .12em; font-weight: 600;
+  color: var(--fg); background: color-mix(in srgb, var(--card-bg) 80%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
+  border-radius: 999px; padding: 7px 16px;
+  transition: background .2s ease, transform .15s ease;
+}
+#autoplay-btn:hover { background: color-mix(in srgb, var(--accent) 18%, transparent); transform: translateY(-1px); }
+#autoplay-btn.playing { color: #1a1408; background: var(--accent); border-color: var(--accent); }
+
+/* ===== 章节 ===== */
+#journey { position: relative; }
+.chapter {
+  position: relative;
+  min-height: 100vh;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; padding: 16vh 6vw 20vh;
+}
+/* 加长章节 + sticky:动画钉在屏幕中央,三卡分居左右两侧同屏显示 */
+.chapter.is-pinned {
+  min-height: 220vh;
+  padding: 0;
+  justify-content: flex-start;
+}
+.chapter-sticky {
+  position: sticky; top: 0; height: 100vh;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; padding: 9vh 4vw 13vh;
+  /* [P2·STEP5.1] 裁剪卡片动画初始位移(transform ±46px/opacity 0)产生的滚动溢出；clip 不创建滚动容器、不隐藏真实内容(透明元素) */
+  overflow-x: clip;
+}
+.chapter-sticky.has-sides {
+  display: grid;
+  grid-template-columns: minmax(280px, 340px) minmax(0, 1fr) minmax(280px, 340px);
+  gap: clamp(14px, 2vw, 30px);
+  align-items: center;
+  padding: 8vh clamp(10px, 1.4vw, 22px) 12vh;
+}
+.sticky-center { display: flex; flex-direction: column; align-items: center; text-align: center; min-width: 0; }
+.center-row {
+  display: flex; gap: clamp(14px, 2vw, 30px); align-items: center; justify-content: center;
+  width: 100%;
+}
+.center-row .stage-viz { flex: 1 1 auto; width: auto; min-width: 0; margin: 0; }
+.field-figure {
+  position: relative;
+  flex: 0 0 clamp(170px, 22vw, 250px);
+  background: #f4eedd; border-radius: var(--ds-radius-lg); overflow: hidden;
+  border: 1px solid rgba(0,0,0,.1);
+  box-shadow: 0 18px 42px rgba(0,0,0,.35);
+  opacity: 0;
+}
+.field-figure .img-box { position: relative; line-height: 0; }
+.field-figure img { width: 100%; height: clamp(150px, 24vh, 220px); object-fit: cover; display: block; }
+/* 右下角渐变遮罩:盖住生图水印(米白底色,与图片背景无缝融合) */
+.img-mask {
+  position: absolute; right: 0; bottom: 0; width: 38%; height: 28%;
+  background: linear-gradient(135deg, transparent 26%, #f4eedd 82%);
+  pointer-events: none;
+}
+.field-figure figcaption { padding: 8px 10px; font-size: 12px; color: #6b5f45; text-align: center; letter-spacing: .08em; }
+/* 解剖章结构图 */
+.anatomy-figs { display: flex; gap: 18px; justify-content: center; flex-wrap: wrap; margin-bottom: 18px; }
+.anatomy-fig { flex: 0 0 clamp(180px, 24vw, 260px); }
+.sticky-side { display: flex; flex-direction: column; gap: 14px; }
+.sticky-side .teach-card { margin: 0; }
+.sticky-left .teach-card, .sticky-right .teach-card { opacity: 0; }
+.chapter-stage {
+  font-size: 13px; letter-spacing: .35em; color: var(--accent);
+  margin-bottom: 26px; text-transform: uppercase; transition: color .2s linear;
+}
+.chapter-title { font-size: clamp(44px, 8vw, 108px); font-weight: 800; line-height: 1.08; letter-spacing: .04em; }
+.chapter-title .char { display: inline-block; will-change: transform, opacity; }
+.chapter-sub { margin-top: 22px; font-size: clamp(15px, 2vw, 21px); color: var(--dim); letter-spacing: .08em; line-height: 1.9; max-width: 46em; }
+.chapter-emoji { font-size: clamp(64px, 10vw, 130px); line-height: 1; margin-bottom: 30px; filter: saturate(.9); }
+.teach-cards {
+  margin-top: 54px; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 260px));
+  gap: 14px; justify-content: center; width: min(900px, 100%);
+}
+.teach-card {
+  background: var(--card-bg); border: 1px solid color-mix(in srgb, var(--accent) 22%, transparent);
+  border-radius: 18px; padding: 22px 22px 20px; text-align: left;
+  font-size: 15px; line-height: 1.85; color: var(--dim);
+}
+.teach-card b { display: block; color: var(--fg); font-size: 17px; margin-bottom: 10px; letter-spacing: .05em; }
+.teach-card b i { font-style: normal; color: var(--accent); margin-right: 7px; font-size: 18px; }
+
+/* 用途循环 */
+.uses-loop { font-size: clamp(30px, 5vw, 64px); font-weight: 800; color: var(--accent); min-height: 1.4em; }
+.uses-loop .char { display: inline-block; will-change: transform, opacity; transform-origin: 0% 95%; }
+.uses-dot { display: inline-block; color: var(--accent); margin-left: 2px; }
+
+/* 种子开场 */
+.seed-scene { position: relative; height: 220px; width: 220px; margin-bottom: 36px; }
+.seed-svg { position: absolute; inset: 0; overflow: visible; }
+.seed-svg path, .seed-svg circle { fill: none; stroke: var(--accent); }
+.ground-line { stroke: var(--dim); stroke-width: 1; }
+
+/* 解剖占位 */
+.anatomy-head {
+  display: flex; gap: 28px; align-items: center; justify-content: center; flex-wrap: wrap;
+  perspective: 800px; margin-top: 8px;
+}
+.anatomy-spike { font-size: clamp(70px, 11vw, 150px); filter: drop-shadow(0 12px 30px rgba(0,0,0,.4)); }
+.anatomy-note { font-size: 13px; color: var(--dim); max-width: 24em; line-height: 1.9; text-align: left; }
+
+/* 营养占位 */
+.bars { margin-top: 40px; width: min(520px, 90%); display: flex; flex-direction: column; gap: 14px; }
+.bar-row { display: grid; grid-template-columns: 92px 1fr 72px; align-items: center; gap: 12px; font-size: 14px; }
+.bar-track { background: rgba(255,255,255,.09); border-radius: var(--ds-radius-xs); height: 18px; overflow: hidden; }
+.bar-fill { height: 100%; width: 0%; background: var(--accent); border-radius: var(--ds-radius-xs); }
+.bar-val { text-align: right; color: var(--accent); font-weight: 700; font-variant-numeric: tabular-nums; }
+
+/* 结尾按钮 */
+.outro-actions { margin-top: 44px; display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
+.btn {
+  display: inline-block; padding: 16px 34px; border-radius: 999px; font-size: 16px; font-weight: 700;
+  letter-spacing: .1em; text-decoration: none; cursor: pointer; border: 1px solid var(--accent);
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.btn:hover { transform: translateY(-2px); }
+.btn-primary { background: var(--accent); color: #1a1408; box-shadow: 0 10px 34px color-mix(in srgb, var(--accent) 35%, transparent); }
+.btn-ghost { color: var(--fg); background: transparent; }
+.btn-ghost:hover { box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 50%, transparent) inset; }
+
+/* ===== 章节卡 ===== */
+#chapter-card {
+  position: fixed; right: 26px; bottom: 74px; z-index: 40;
+  background: var(--card-bg); border: 1px solid color-mix(in srgb, var(--accent) 25%, transparent);
+  border-radius: 14px; padding: 14px 18px; max-width: 240px;
+  font-size: 13px; line-height: 1.7; color: var(--dim);
+  opacity: 0; transform: translateY(16px); pointer-events: none;
+}
+#chapter-card .card-no { color: var(--accent); font-size: 12px; letter-spacing: .2em; }
+#chapter-card .card-name { color: var(--fg); font-weight: 700; font-size: 16px; margin: 2px 0 4px; }
+
+/* ===== 进度条 ===== */
+#progress-wrap {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 60;
+  padding: 14px 20px 16px;
+  background: linear-gradient(to top, rgba(0,0,0,.45), transparent);
+}
+#scroll-bar {
+  position: relative; height: 22px; display: flex;
+  border-top: 1px solid rgba(255,255,255,.22);
+  background-size: 7.6923% 100%;
+  background-image: linear-gradient(to right, rgba(255,255,255,.14) 1px, transparent 1px);
+  cursor: pointer;
+}
+.scroll-button {
+  flex: 1; background: none; border: none; cursor: pointer; position: relative;
+  height: 100%; padding: 0;
+}
+.scroll-button:hover::after {
+  content: attr(data-name); position: absolute; bottom: 130%; left: 50%; transform: translateX(-50%);
+  background: var(--card-bg); color: var(--fg); font-size: 12px; padding: 5px 10px; border-radius: var(--ds-radius-sm);
+  white-space: nowrap; pointer-events: none; letter-spacing: .08em;
+}
+#scroll-cursor, #cursor-ghost {
+  position: absolute; top: -4px; width: 4px; height: 30px; border-radius: 4px;
+  background: var(--accent); will-change: transform; pointer-events: none; transition: background .2s linear;
+}
+#scroll-cursor { z-index: 3; pointer-events: auto; cursor: grab; }
+#scroll-cursor:active { cursor: grabbing; }
+#scroll-cursor::after {
+  content: ""; display: block; position: absolute; inset: -.55rem; background: transparent;
+}
+#cursor-ghost { z-index: 2; background: color-mix(in srgb, var(--accent) 45%, transparent); opacity: 0; }
+
+/* 滚动提示 */
+#scroll-hint { position: fixed; bottom: 70px; left: 50%; transform: translateX(-50%); z-index: 30; font-size: 12px; letter-spacing: .3em; color: var(--dim); pointer-events: none; }
+
+@media (max-width: 1400px) {
+  .center-row { flex-direction: column; }
+  .center-row .stage-viz { width: min(560px, 92vw); flex: none; margin-bottom: 6px; }
+  .field-figure { flex: none; width: clamp(220px, 32vw, 300px); }
+  .field-figure img { height: clamp(140px, 20vh, 190px); }
+  .chapter-sticky.has-sides { grid-template-columns: minmax(250px, 300px) minmax(0, 1fr) minmax(250px, 300px); }
+}
+@media (max-width: 900px) {
+  .teach-cards { grid-template-columns: 1fr; width: 100%; }
+  #chapter-card { right: 14px; bottom: 66px; max-width: 200px; }
+  .chapter { padding: 14vh 5vw 24vh; }
+  /* 移动端:取消停留与两侧布局,章节自然流,三卡竖排在动画下方 */
+  .chapter.is-pinned { min-height: auto; }
+  .chapter-sticky { position: static; height: auto; min-height: 100vh; padding: 10vh 5vw 8vh; display: flex; }
+  .chapter-sticky.has-sides { display: flex; }
+  .center-row { flex-direction: column; }
+  .center-row .stage-viz { width: min(560px, 94vw); flex: none; }
+  .field-figure { flex: none; width: min(320px, 80vw); }
+  .sticky-center { order: 1; }
+  .sticky-side { order: 2; flex-direction: column; width: min(560px, 100%); }
+  .sticky-left .teach-card, .sticky-right .teach-card { opacity: 1 !important; transform: none !important; }
+}
+
+/* ===== M2 阶段生长动画(stage-viz)===== */
+.stage-viz {
+  position: relative; width: min(560px, 94vw); height: 250px;
+  margin: 6px 0 10px; display: flex; align-items: center; justify-content: center;
+}
+.stage-viz svg { width: 100%; height: 100%; overflow: visible; }
+.viz-ground { stroke: var(--dim); stroke-width: 1.5; }
+.viz-label { font-size: 11px; fill: var(--dim); letter-spacing: .05em; }
+.viz-accent { fill: var(--accent); stroke: var(--accent); }
+.stage-viz canvas { width: 100%; height: 100%; display: block; }
+.stage-photo {
+  position: absolute; right: -14px; bottom: -6px; width: 148px;
+  border-radius: var(--ds-radius-md); overflow: hidden; border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
+  box-shadow: 0 14px 34px rgba(0,0,0,.45); background: #10130c;
+}
+.stage-photo img { width: 100%; height: auto; display: block; }
+.stage-photo figcaption { font-size: 11px; color: var(--dim); padding: 6px 8px; text-align: left; letter-spacing: .05em; }
+.teach-card .dis-pics { display: flex; gap: 8px; margin-top: 12px; }
+.teach-card .dis-pics img {
+  flex: 1; width: calc(50% - 4px); height: 92px; object-fit: cover; border-radius: 10px;
+  border: 1px solid rgba(255,255,255,.14); cursor: zoom-in; transition: transform .15s ease;
+}
+.teach-card .dis-pics img:hover { transform: scale(1.08); }
+#lightbox {
+  position: fixed; inset: 0; z-index: 200; background: rgba(0,0,0,.8);
+  display: none; align-items: center; justify-content: center; cursor: zoom-out;
+}
+#lightbox.show { display: flex; }
+#lightbox img { max-width: 86vw; max-height: 80vh; border-radius: 10px; box-shadow: 0 30px 80px rgba(0,0,0,.6); }
+#lightbox figcaption { position: absolute; bottom: 5vh; left: 0; right: 0; text-align: center; color: var(--dim); font-size: 13px; }
+.viz-num { font-variant-numeric: tabular-nums; }
+.snow-flake { position: absolute; top: -12px; width: 6px; height: 6px; border-radius: var(--ds-radius-full); background: rgba(255,255,255,.8); pointer-events: none; opacity: 0; }
+@keyframes snowFall {
+  0% { transform: translateY(-16px) translateX(0); }
+  100% { transform: translateY(272px) translateX(22px); }
+}
+@media (max-width: 760px) {
+  .stage-viz { height: 200px; }
+  .stage-photo { width: 110px; right: -4px; }
+}
+
+/* ===== [P2·STEP7] 知识路径增强 ===== */
+.stage-context{font-size:12px;letter-spacing:.14em;color:var(--dim);white-space:nowrap}
+#stageMap{max-width:760px;margin:0 auto 10px;gap:0;padding:0 8px}
+#stageMap .ds-stage-node{position:relative;flex:1;background:none;border:none;cursor:pointer;font-family:inherit;font-size:11px;letter-spacing:.05em;color:var(--ds-text-muted);padding:4px 0;gap:6px;transition:color .2s}
+#stageMap .ds-stage-node:hover{color:var(--ds-text)}
+#stageMap .ds-stage-node:not(:first-child)::before{content:"";position:absolute;top:10px;right:50%;width:100%;height:2px;background:var(--ds-border);z-index:0}
+#stageMap .ds-stage-node .ds-stage-dot{position:relative;z-index:1;background:var(--ds-bg-surface);border:2px solid var(--ds-border)}
+.teach-card.ds-card{padding:12px 14px;border-radius:var(--ds-radius-md);font-size:13px;line-height:1.7;color:var(--ds-text-secondary);box-shadow:var(--ds-shadow-xs)}
+.teach-card.ds-card b{display:block;margin-bottom:4px;color:var(--ds-text);font-size:13px;letter-spacing:.03em}
+.teach-card.ds-card-teaching{background:var(--ds-primary-soft);border-color:var(--ds-primary)}
+.teach-card.ds-card-status{background:var(--ds-accent-soft);border-color:var(--ds-accent)}
+.teach-card.ds-card-interactive{background:var(--ds-bg-muted);border-color:var(--ds-border)}
+.stage-cta{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:26px;padding:16px 18px;border-radius:var(--ds-radius-lg);background:linear-gradient(120deg,rgba(52,211,153,.12),rgba(242,217,138,.08));border:1px solid var(--ds-border-subtle)}
+.stage-cta-txt b{display:block;color:var(--ds-text);font-size:14px;letter-spacing:.04em}
+.stage-cta-txt span{display:block;margin-top:3px;color:var(--ds-text-muted);font-size:12px;letter-spacing:.06em}
+@media (max-width:720px){#stageMap{max-width:none;overflow-x:auto;flex-wrap:nowrap;justify-content:flex-start;scrollbar-width:none}#stageMap::-webkit-scrollbar{display:none}#stageMap .ds-stage-node{flex:0 0 72px}.stage-context{display:none}}
+/* [P2·STEP5.3] 视觉隐藏语义标题 utility */
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+
+/* [P2·STEP7.4] 全局键盘焦点环（仅键盘触发；不覆盖既有更具体规则） */
+:focus-visible{outline:2px solid var(--ds-primary);outline-offset:2px}
+button:disabled,input:disabled,select:disabled,textarea:disabled{cursor:not-allowed}
+</style>
+</head>
+<body data-template="journey">
+<div class="page">
+  <header id="site-header">
+    <div class="header-title"><span class="seed-dot"></span>冬小麦的一生</div>
+    <nav class="ds-header-nav" aria-label="站点导航">
+      <a href="home.html">学习空间</a>
+      <a href="journey.html" class="is-active">知识路径</a>
+      <a href="index-v2.html">模拟实验</a>
+    </nav>
+    <div class="header-right">
+      <span id="stageContext" class="stage-context"></span>
+      <div id="season-label">开 场</div>
+      <button id="autoplay-btn" title="自动播放整段导览" aria-label="自动播放">▶ 自动播放</button>
+    </div>
+  </header>
+
+  <main id="journey">
+    <!-- [P2·STEP5.3] 语义 h1（视觉隐藏，零布局影响） -->
+    <h1 class="sr-only">冬小麦的一生 · 生长旅程</h1>
+
+    <!-- 1 INTRO -->
+    <section class="chapter" id="intro" data-chapter="intro" data-label="INTRO">
+      <div class="seed-scene">
+        <svg class="seed-svg" viewBox="0 0 220 220">
+          <line class="ground-line" x1="0" y1="168" x2="220" y2="168"/>
+          <g id="seed-g">
+            <path id="seed-body" d="M 110 74 C 124 74 136 84 138 98 C 139 106 139 114 138 122 C 136 138 124 148 110 148 C 98 148 88 140 84 128 C 82 122 82 116 84 110 C 88 96 98 74 110 74 Z" transform="rotate(14 110 110)"/>
+            <path id="seed-root" d="M 128 136 C 138 156 136 176 146 196" stroke-width="3" stroke-linecap="round"/>
+            <path id="seed-shoot" d="M 94 92 C 84 70 88 48 82 26" stroke-width="3" stroke-linecap="round"/>
+          </g>
+        </svg>
+      </div>
+      <div class="chapter-stage">THE LIFE OF WINTER WHEAT</div>
+      <h2 class="chapter-title intro-title">冬小麦的一生</h2>
+      <p class="chapter-sub intro-sub">从一粒种子,到一穗金黄。<br>向下滚动,就是它生长的 240 天。</p>
+    </section>
+
+    <!-- 2 USES -->
+    <section class="chapter" id="uses" data-chapter="uses" data-label="USES">
+      <div class="chapter-stage">WHAT WHEAT BECOMES</div>
+      <h2 class="chapter-title">小麦能变成<span class="uses-dot">·</span></h2>
+      <p class="uses-loop" id="uses-loop">面粉</p>
+      <p class="chapter-sub">全世界最主要的粮食作物之一,养育了地球上一半以上的人口。</p>
+    </section>
+
+    <!-- 3-10 八个生育期 -->
+    <section class="chapter" id="stage1" data-chapter="stage1" data-label="STAGE_1">
+      <div class="stage-viz">
+        <svg viewBox="0 0 560 240">
+          <line class="viz-ground" x1="20" y1="182" x2="540" y2="182"/>
+          <rect x="60" y="182" width="420" height="44" fill="rgba(255,255,255,.045)" rx="6"/>
+          <text class="viz-label" x="68" y="216">土层</text>
+          <g id="s1-ruler">
+            <line x1="512" y1="140" x2="512" y2="182" stroke="var(--dim)" stroke-width="1"/>
+            <line class="s1-tick" x1="506" y1="148" x2="518" y2="148" stroke="var(--dim)"/>
+            <line class="s1-tick" x1="506" y1="164" x2="518" y2="164" stroke="var(--dim)"/>
+            <text class="viz-label s1-num" x="524" y="152">3cm</text>
+            <text class="viz-label s1-num" x="524" y="168">5cm</text>
+            <rect id="s1-zone" x="503" y="148" width="4" height="16" fill="var(--accent)" opacity="0" rx="2"/>
+          </g>
+          <g id="s1-seed" transform="translate(150 0)">
+            <path id="s1-coat" d="M 140 106 C 172 106 196 126 196 150 C 196 176 172 194 140 194 C 122 194 106 184 98 168 C 94 160 92 152 92 144 C 92 132 98 120 108 112 C 118 106 128 106 140 106 Z" fill="rgba(232,201,138,.12)" stroke="#e8c98a" stroke-width="2"/>
+            <path d="M 140 106 L 134 96 M 140 106 L 140 94 M 140 106 L 146 96" fill="none" stroke="#e8c98a" stroke-width="1.5" stroke-linecap="round"/>
+            <ellipse id="s1-seedcoat" cx="140" cy="150" rx="44" ry="29" fill="rgba(232,201,138,.16)" stroke="#d9b878" stroke-width="1.5"/>
+            <ellipse id="s1-aleurone" cx="140" cy="150" rx="37" ry="24.5" fill="rgba(226,168,92,.22)" stroke="#e2a85c" stroke-width="1.2"/>
+            <ellipse id="s1-endosperm" cx="140" cy="150" rx="31" ry="21" fill="rgba(245,235,205,.32)" stroke="#f0e2b8" stroke-width="1.5"/>
+            <ellipse id="s1-embryo" cx="160" cy="156" rx="13" ry="9" fill="rgba(154,205,122,.4)" stroke="#9acd7a" stroke-width="1.5"/>
+          </g>
+          <g id="s1-labels">
+            <line class="s1-line" x1="200" y1="112" x2="248" y2="128" stroke="var(--accent)" stroke-width="1"/>
+            <text class="viz-label s1-txt" x="208" y="108">果皮</text>
+            <line class="s1-line" x1="240" y1="178" x2="262" y2="176" stroke="var(--accent)" stroke-width="1"/>
+            <text class="viz-label s1-txt" x="270" y="180">种皮</text>
+            <line class="s1-line" x1="96" y1="120" x2="126" y2="134" stroke="var(--accent)" stroke-width="1"/>
+            <text class="viz-label s1-txt" x="40" y="118">胚乳</text>
+            <line class="s1-line" x1="210" y1="152" x2="238" y2="156" stroke="var(--accent)" stroke-width="1"/>
+            <text class="viz-label s1-txt" x="246" y="160">糊粉层</text>
+            <line class="s1-line" x1="152" y1="186" x2="176" y2="194" stroke="var(--accent)" stroke-width="1"/>
+            <text class="viz-label s1-txt" x="184" y="200">胚</text>
+          </g>
+        </svg>
+      </div>
+      <div class="chapter-stage">第 1 阶段 · 10 月上旬</div>
+      <h2 class="chapter-title st-title">播种期</h2>
+      <p class="chapter-sub">精选良种,深耕细耙,播入 3–5 厘米的温床。种子吸足水分,胚根率先破皮而出。</p>
+      <div class="teach-cards">
+        <div class="teach-card ds-card ds-card-teaching"><b><i>🌱</i>形态特征</b>种子由果皮、种皮、胚乳和胚构成,胚是未来植株的雏形。</div>
+        <div class="teach-card ds-card ds-card-status"><b><i>🧑‍🌾</i>农事要点</b>适期播种、药剂拌种防病(游戏:💧浇水 🧪施肥)。</div>
+        <div class="teach-card ds-card ds-card-interactive"><b><i>🐛</i>易发病害</b>全蚀病、黑穗病——拌种是唯一最经济的防治窗口。<div class="dis-pics"><img src="disease/images/01_全蚀病/01_全蚀病_1.jpg" alt="全蚀病" data-cap="全蚀病"><img src="disease/images/02_黑穗病/02_黑穗病_1.jpg" alt="黑穗病" data-cap="黑穗病"></div></div>
+      </div>
+    
+        <div class="stage-cta">
+          <div class="stage-cta-txt"><b>你已经了解「播种期」。</b><span>现在试着做一次农事决策，看看会怎样影响生长。</span></div>
+          <a class="ds-btn ds-btn-primary" href="index-v2.html?focus=stage1">进入该阶段模拟 →</a>
+        </div>
+      </section>
+
+    <section class="chapter" id="stage2" data-chapter="stage2" data-label="STAGE_2">
+      <div class="stage-viz">
+        <svg viewBox="0 0 560 240">
+          <line class="viz-ground" x1="20" y1="176" x2="540" y2="176"/>
+          <rect x="60" y="176" width="420" height="46" fill="rgba(255,255,255,.045)" rx="6"/>
+          <text class="viz-label" x="68" y="212">土层</text>
+          <path id="s2-soil-crack" d="M 268 176 L 272 186" stroke="var(--dim)" stroke-width="2" stroke-linecap="round"/>
+          <g id="s2-sprout">
+            <path id="s2-root" d="M 270 224 C 268 232 264 238 262 244 M 270 224 C 274 234 278 240 280 246" fill="none" stroke="#d9c9a0" stroke-width="2" stroke-linecap="round"/>
+            <ellipse cx="270" cy="222" rx="8" ry="10" fill="rgba(232,201,138,.25)" stroke="#c9a86a" stroke-width="1"/>
+            <path id="s2-shoot" d="M 270 222 C 270 202 274 186 274 158" fill="none" stroke="#b8c98a" stroke-width="5" stroke-linecap="round"/>
+            <path id="s2-coleoptile" d="M 270 168 C 270 150 272 132 274 118" fill="none" stroke="#cfd9a0" stroke-width="3" stroke-linecap="round"/>
+            <path id="s2-leaf" d="M 274 118 C 260 104 250 86 256 66" fill="none" stroke="#7abf5a" stroke-width="5" stroke-linecap="round"/>
+            <path id="s2-leaf2" d="M 274 118 C 290 104 298 88 294 68" fill="none" stroke="#6db550" stroke-width="5" stroke-linecap="round"/>
+          </g>
+          <g id="s2-sun"><circle cx="480" cy="52" r="20" fill="none" stroke="var(--accent)" stroke-width="1.5" opacity=".5"/></g>
+        </svg>
+      </div>
+      <div class="chapter-stage">第 2 阶段 · 播后 7–10 天</div>
+      <h2 class="chapter-title st-title">出苗期</h2>
+      <p class="chapter-sub">胚芽鞘顶开土层,第一片真叶钻出地面。全苗、匀苗,是丰产的第一道保障。</p>
+      <div class="teach-cards">
+        <div class="teach-card ds-card ds-card-teaching"><b><i>🌱</i>形态特征</b>第一片真叶呈筒状,破土后展开变绿,开始光合作用。</div>
+        <div class="teach-card ds-card ds-card-status"><b><i>🧑‍🌾</i>农事要点</b>查苗补种,缺苗断垄及时补救(游戏:💧浇水)。</div>
+        <div class="teach-card ds-card ds-card-interactive"><b><i>🐛</i>易发病害</b>根腐病、丛矮病——苗期侵染,冬前显症。<div class="dis-pics"><img src="disease/images/03_根腐病/03_根腐病_1.jpg" alt="根腐病" data-cap="根腐病"><img src="disease/images/04_丛矮病/04_丛矮病_1.jpg" alt="丛矮病" data-cap="丛矮病"></div></div>
+      </div>
+    
+        <div class="stage-cta">
+          <div class="stage-cta-txt"><b>你已经了解「出苗期」。</b><span>现在试着做一次农事决策，看看会怎样影响生长。</span></div>
+          <a class="ds-btn ds-btn-primary" href="index-v2.html?focus=stage2">进入该阶段模拟 →</a>
+        </div>
+      </section>
+
+    <section class="chapter" id="stage3" data-chapter="stage3" data-label="STAGE_3">
+      <div class="stage-viz">
+        <canvas id="s3-canvas" width="560" height="250"></canvas>
+        <div id="s3-sprouts" style="position:absolute;left:8px;bottom:10px;display:flex;gap:2px;font-size:34px;line-height:1;">
+          <span class="s3-mini">🌱</span><span class="s3-mini">🌱</span><span class="s3-mini">🌱</span><span class="s3-mini">🌱</span><span class="s3-mini">🌱</span><span class="s3-mini">🌱</span>
+        </div>
+      </div>
+      <div class="chapter-stage">第 3 阶段 · 11 月</div>
+      <h2 class="chapter-title st-title">分蘖期</h2>
+      <p class="chapter-sub">主茎基部的分蘖节上,新茎一株接一株萌出——一株麦苗,长成一丛麦株。</p>
+      <div class="teach-cards">
+        <div class="teach-card ds-card ds-card-teaching"><b><i>🌱</i>形态特征</b>分蘖从分蘖节长出,冬前壮苗标准是"三大两小五个蘖"。</div>
+        <div class="teach-card ds-card ds-card-status"><b><i>🧑‍🌾</i>农事要点</b>冬前促壮,控制旺长(游戏:💧浇水 🧪施肥)。</div>
+        <div class="teach-card ds-card ds-card-interactive"><b><i>🐛</i>易发病害</b>纹枯病、条锈病——秋苗初次侵染的起点。<div class="dis-pics"><img src="disease/images/05_纹枯病/05_纹枯病_1.jpg" alt="纹枯病" data-cap="纹枯病"><img src="disease/images/06_条锈病/06_条锈病_1.jpg" alt="条锈病" data-cap="条锈病"></div></div>
+      </div>
+    
+        <div class="stage-cta">
+          <div class="stage-cta-txt"><b>你已经了解「分蘖期」。</b><span>现在试着做一次农事决策，看看会怎样影响生长。</span></div>
+          <a class="ds-btn ds-btn-primary" href="index-v2.html?focus=stage3">进入该阶段模拟 →</a>
+        </div>
+      </section>
+
+    <section class="chapter" id="stage4" data-chapter="stage4" data-label="STAGE_4">
+      <div class="stage-viz">
+        <svg viewBox="0 0 560 250">
+          <circle cx="238" cy="125" r="92" fill="none" stroke="rgba(159,195,217,.18)" stroke-width="1"/>
+          <g id="s4-ticks"></g>
+          <circle cx="238" cy="125" r="64" fill="none" stroke="rgba(159,195,217,.12)" stroke-width="1"/>
+          <text id="s4-num" x="238" y="118" text-anchor="middle" font-size="34" font-weight="700" fill="var(--fg)" class="viz-num">0</text>
+          <text id="s4-unit" x="238" y="144" text-anchor="middle" font-size="13" fill="var(--dim)">天 · 0–7℃ 低温累积</text>
+          <g id="s4-wheat" transform="translate(388 96)">
+            <path d="M 0 100 C 8 104 22 108 40 106 C 70 104 96 98 118 96" fill="none" stroke="#4c7a38" stroke-width="6" stroke-linecap="round"/>
+            <path d="M 4 100 C 12 108 30 112 56 110 C 88 108 116 104 142 104" fill="none" stroke="#5a8a40" stroke-width="6" stroke-linecap="round"/>
+            <path d="M 8 102 C 16 114 34 120 60 118 C 92 116 122 112 150 114" fill="none" stroke="#4c7a38" stroke-width="6" stroke-linecap="round"/>
+            <path d="M -4 92 C 0 96 4 98 8 100" fill="none" stroke="#6da24e" stroke-width="4" stroke-linecap="round"/>
+            <path d="M -6 116 C 40 118 90 120 178 124" fill="none" stroke="rgba(159,195,217,.55)" stroke-width="11" stroke-linecap="round"/>
+            <path d="M -10 108 C 36 110 86 112 176 116" fill="none" stroke="rgba(159,195,217,.35)" stroke-width="8" stroke-linecap="round"/>
+          </g>
+          <text class="viz-label" x="392" y="180">雪下休眠的麦苗</text>
+        </svg>
+      </div>
+      <div class="chapter-stage">第 4 阶段 · 12 月 — 2 月</div>
+      <h2 class="chapter-title st-title">越冬期</h2>
+      <p class="chapter-sub">麦苗匍匐休眠,在积雪下默默完成春化——低温,是它明年抽穗的必经之路。</p>
+      <div class="teach-cards">
+        <div class="teach-card ds-card ds-card-teaching"><b><i>🌱</i>形态特征</b>叶片匍匐、颜色深绿,生长几乎停止,抗寒力最强。</div>
+        <div class="teach-card ds-card ds-card-status"><b><i>🧑‍🌾</i>农事要点</b>浇好越冬水,镇压保墒(游戏:💧浇水)。</div>
+        <div class="teach-card ds-card ds-card-interactive"><b><i>🐛</i>易发病害</b>雪腐雪霉病——唯一在积雪下活跃的病害。<div class="dis-pics"><img src="disease/images/07_雪腐雪霉病/07_雪腐雪霉病_1.jpg" alt="雪腐雪霉病" data-cap="雪腐雪霉病"><img src="disease/images/05_纹枯病/05_纹枯病_2.jpg" alt="纹枯病(菌核越冬)" data-cap="纹枯病(菌核越冬)"></div></div>
+      </div>
+    
+        <div class="stage-cta">
+          <div class="stage-cta-txt"><b>你已经了解「越冬期」。</b><span>现在试着做一次农事决策，看看会怎样影响生长。</span></div>
+          <a class="ds-btn ds-btn-primary" href="index-v2.html?focus=stage4">进入该阶段模拟 →</a>
+        </div>
+      </section>
+
+    <section class="chapter" id="stage5" data-chapter="stage5" data-label="STAGE_5">
+      <div class="stage-viz">
+        <svg viewBox="0 0 560 250">
+          <g id="s5-wheat" transform="translate(150 40)">
+            <ellipse cx="12" cy="172" rx="16" ry="9" fill="rgba(232,201,138,.2)" stroke="#c9a86a" stroke-width="1"/>
+            <path class="s5-leaf" d="M 6 168 C -18 140 -30 108 -22 70" fill="none" stroke="#b58a3a" stroke-width="7" stroke-linecap="round"/>
+            <path class="s5-leaf" d="M 12 168 C 0 136 -4 106 4 66" fill="none" stroke="#b58a3a" stroke-width="7" stroke-linecap="round"/>
+            <path class="s5-leaf" d="M 18 168 C 26 138 30 110 26 74" fill="none" stroke="#b58a3a" stroke-width="7" stroke-linecap="round"/>
+            <path class="s5-leaf" d="M 12 168 C 44 150 58 128 54 96" fill="none" stroke="#b58a3a" stroke-width="6" stroke-linecap="round"/>
+            <path class="s5-leaf" d="M 4 168 C -30 158 -46 140 -42 112" fill="none" stroke="#b58a3a" stroke-width="6" stroke-linecap="round"/>
+            <path d="M -12 190 C 40 190 90 192 140 194" fill="none" stroke="rgba(255,255,255,.1)" stroke-width="4"/>
+          </g>
+          <g id="s5-sun" transform="translate(430 64)">
+            <circle cx="0" cy="0" r="36" fill="rgba(246,201,92,.14)"/>
+            <circle cx="0" cy="0" r="24" fill="rgba(246,201,92,.25)" stroke="#f6c95c" stroke-width="2.5"/>
+            <line x1="-40" y1="0" x2="-30" y2="0" stroke="#f6c95c" stroke-width="1.8" stroke-linecap="round"/>
+            <line x1="30" y1="0" x2="40" y2="0" stroke="#f6c95c" stroke-width="1.8" stroke-linecap="round"/>
+            <line x1="0" y1="-40" x2="0" y2="-30" stroke="#f6c95c" stroke-width="1.8" stroke-linecap="round"/>
+            <line x1="0" y1="30" x2="0" y2="40" stroke="#f6c95c" stroke-width="1.8" stroke-linecap="round"/>
+            <line x1="-28" y1="-28" x2="-21" y2="-21" stroke="#f6c95c" stroke-width="1.4" stroke-linecap="round"/>
+            <line x1="21" y1="-21" x2="28" y2="-28" stroke="#f6c95c" stroke-width="1.4" stroke-linecap="round"/>
+            <line x1="-28" y1="28" x2="-21" y2="21" stroke="#f6c95c" stroke-width="1.4" stroke-linecap="round"/>
+            <line x1="21" y1="21" x2="28" y2="28" stroke="#f6c95c" stroke-width="1.4" stroke-linecap="round"/>
+          </g>
+          <g id="s5-thermo" transform="translate(64 42)">
+            <rect x="0" y="0" width="26" height="168" rx="13" fill="none" stroke="var(--dim)" stroke-width="2"/>
+            <circle cx="13" cy="178" r="22" fill="none" stroke="var(--dim)" stroke-width="2"/>
+            <rect id="s5-mercury" x="8" y="126" width="10" height="42" rx="5" fill="#d97a5a"/>
+            <circle cx="13" cy="178" r="14" fill="#d97a5a"/>
+            <text id="s5-temp" x="13" y="222" text-anchor="middle" font-size="16" font-weight="700" fill="var(--fg)" class="viz-num">2℃</text>
+            <text class="viz-label" x="13" y="240" text-anchor="middle">气温回升 · 返青</text>
+          </g>
+          <text class="viz-label" x="150" y="52">枯黄 → 新绿</text>
+        </svg>
+      </div>
+      <div class="chapter-stage">第 5 阶段 · 3 月上旬</div>
+      <h2 class="chapter-title st-title">返青期</h2>
+      <p class="chapter-sub">气温回升,麦苗由枯黄转绿,重新开始生长——春天,回来了。</p>
+      <div class="teach-cards">
+        <div class="teach-card ds-card ds-card-teaching"><b><i>🌱</i>形态特征</b>新叶萌出,心叶生长,田间由黄转绿。</div>
+        <div class="teach-card ds-card ds-card-status"><b><i>🧑‍🌾</i>农事要点</b>返青水 + 追施氮肥,促早发(游戏:💧浇水 🧪施肥)。</div>
+        <div class="teach-card ds-card ds-card-interactive"><b><i>🐛</i>易发病害</b>白粉病、条锈病、茎基腐病——春季复苏扩展。<div class="dis-pics"><img src="disease/images/08_白粉病/08_白粉病_1.jpg" alt="白粉病" data-cap="白粉病"><img src="disease/images/06_条锈病/06_条锈病_2.jpg" alt="条锈病" data-cap="条锈病"></div></div>
+      </div>
+    
+        <div class="stage-cta">
+          <div class="stage-cta-txt"><b>你已经了解「返青期」。</b><span>现在试着做一次农事决策，看看会怎样影响生长。</span></div>
+          <a class="ds-btn ds-btn-primary" href="index-v2.html?focus=stage5">进入该阶段模拟 →</a>
+        </div>
+      </section>
+
+    <section class="chapter" id="stage6" data-chapter="stage6" data-label="STAGE_6">
+      <div class="stage-viz">
+        <svg viewBox="0 0 560 250">
+          <line class="viz-ground" x1="60" y1="216" x2="420" y2="216"/>
+          <g id="s6-stem" transform="translate(240 0)">
+            <line class="s6-node" x1="-14" y1="196" x2="14" y2="196" stroke="var(--dim)" stroke-width="3"/>
+            <line id="s6-i1" x1="0" y1="196" x2="0" y2="158" stroke="#8ac97a" stroke-width="8" stroke-linecap="round"/>
+            <path class="s6-sheath" d="M 0 196 C -18 188 -24 172 -22 156" fill="none" stroke="#6da24e" stroke-width="6" stroke-linecap="round"/>
+            <line class="s6-node" x1="-14" y1="158" x2="14" y2="158" stroke="var(--dim)" stroke-width="3"/>
+            <line id="s6-i2" x1="0" y1="158" x2="0" y2="114" stroke="#8ac97a" stroke-width="8" stroke-linecap="round"/>
+            <path class="s6-sheath" d="M 0 158 C 20 148 28 132 26 112" fill="none" stroke="#6da24e" stroke-width="6" stroke-linecap="round"/>
+            <line class="s6-node" x1="-14" y1="114" x2="14" y2="114" stroke="var(--dim)" stroke-width="3"/>
+            <line id="s6-i3" x1="0" y1="114" x2="0" y2="76" stroke="#8ac97a" stroke-width="8" stroke-linecap="round"/>
+            <path class="s6-sheath" d="M 0 114 C -20 106 -26 92 -24 76" fill="none" stroke="#6da24e" stroke-width="6" stroke-linecap="round"/>
+            <line class="s6-node" x1="-14" y1="76" x2="14" y2="76" stroke="var(--dim)" stroke-width="3"/>
+            <line id="s6-i4" x1="0" y1="76" x2="0" y2="46" stroke="#8ac97a" stroke-width="8" stroke-linecap="round"/>
+            <path class="s6-sheath" d="M 0 76 C 22 68 30 54 30 40" fill="none" stroke="#6da24e" stroke-width="6" stroke-linecap="round"/>
+            <line class="s6-node" x1="-14" y1="46" x2="14" y2="46" stroke="var(--dim)" stroke-width="3"/>
+            <path id="s6-spike" d="M 0 46 C 0 32 0 20 0 12" fill="none" stroke="#cfe08a" stroke-width="6" stroke-linecap="round"/>
+          </g>
+          <g id="s6-ruler">
+            <line x1="330" y1="216" x2="330" y2="40" stroke="var(--dim)" stroke-width="1"/>
+            <rect id="s6-height" x="318" y="120" width="24" height="96" fill="var(--accent)" opacity=".14" rx="4"/>
+            <line x1="312" y1="120" x2="348" y2="120" stroke="var(--dim)"/>
+            <text id="s6-hnum" x="358" y="124" font-size="15" font-weight="700" fill="var(--accent)" class="viz-num">0cm</text>
+          </g>
+          <text class="viz-label" x="150" y="240">节间伸长 · 一天一个样</text>
+        </svg>
+      </div>
+      <div class="chapter-stage">第 6 阶段 · 4 月上旬</div>
+      <h2 class="chapter-title st-title">拔节期</h2>
+      <p class="chapter-sub">茎秆节间快速伸长,麦苗一天一个样。此时也是水肥需求最旺盛的时期。</p>
+      <div class="teach-cards">
+        <div class="teach-card ds-card ds-card-teaching"><b><i>🌱</i>形态特征</b>基部节间伸长,茎秆拔高,穗分化进入关键期。</div>
+        <div class="teach-card ds-card ds-card-status"><b><i>🧑‍🌾</i>农事要点</b>拔节水肥 + 防倒伏(游戏:💧浇水 🧪施肥 🌬️通风)。</div>
+        <div class="teach-card ds-card ds-card-interactive"><b><i>🐛</i>易发病害</b>纹枯病、白粉病——发病高峰期。<div class="dis-pics"><img src="disease/images/05_纹枯病/05_纹枯病_3.jpg" alt="纹枯病" data-cap="纹枯病"><img src="disease/images/08_白粉病/08_白粉病_2.jpg" alt="白粉病" data-cap="白粉病"></div></div>
+      </div>
+    
+        <div class="stage-cta">
+          <div class="stage-cta-txt"><b>你已经了解「拔节期」。</b><span>现在试着做一次农事决策，看看会怎样影响生长。</span></div>
+          <a class="ds-btn ds-btn-primary" href="index-v2.html?focus=stage6">进入该阶段模拟 →</a>
+        </div>
+      </section>
+
+    <section class="chapter" id="stage7" data-chapter="stage7" data-label="STAGE_7">
+      <div class="stage-viz">
+        <svg viewBox="0 0 560 250">
+          <g id="s7-plant" transform="translate(250 0)">
+            <line class="viz-ground" x1="-190" y1="216" x2="170" y2="216" stroke="var(--dim)" stroke-width="1.5"/>
+            <path d="M 0 216 L 0 120" stroke="#6da24e" stroke-width="8" stroke-linecap="round"/>
+            <path d="M 0 150 C -30 142 -48 124 -58 98" fill="none" stroke="#5a8a40" stroke-width="8" stroke-linecap="round"/>
+            <path d="M 0 150 C 30 142 48 124 58 98" fill="none" stroke="#5a8a40" stroke-width="8" stroke-linecap="round"/>
+            <path id="s7-sheath" d="M 0 118 L 0 66" stroke="#4c7a38" stroke-width="11" stroke-linecap="round" opacity=".9"/>
+            <g id="s7-spike">
+              <path d="M 0 64 C 0 40 0 16 0 0" fill="none" stroke="#d9c878" stroke-width="5" stroke-linecap="round"/>
+              <g id="s7-grains"></g>
+            </g>
+            <g id="s7-pollen"></g>
+          </g>
+          <text class="viz-label" x="160" y="240">穗从旗叶叶鞘抽出 · 扬花授粉</text>
+        </svg>
+      </div>
+      <div class="chapter-stage">第 7 阶段 · 4 月底 — 5 月初</div>
+      <h2 class="chapter-title st-title">抽穗开花期</h2>
+      <p class="chapter-sub">麦穗从旗叶叶鞘中抽出,淡黄色小花依次开放——授粉,在此刻完成。</p>
+      <div class="teach-cards">
+        <div class="teach-card ds-card ds-card-teaching"><b><i>🌱</i>形态特征</b>穗轴节节抽出,小花开放,自花授粉。</div>
+        <div class="teach-card ds-card ds-card-status"><b><i>🧑‍🌾</i>农事要点</b>"一喷三防"关键期:防病虫、防干热风、防早衰(游戏:🐛打药)。</div>
+        <div class="teach-card ds-card ds-card-interactive"><b><i>🐛</i>易发病害</b>赤霉病——"见花打药",扬花初期最关键。<div class="dis-pics"><img src="disease/images/10_赤霉病/10_赤霉病_1.jpg" alt="赤霉病" data-cap="赤霉病"><img src="disease/images/11_秆锈病/11_秆锈病_1.jpg" alt="秆锈病" data-cap="秆锈病"></div></div>
+      </div>
+    
+        <div class="stage-cta">
+          <div class="stage-cta-txt"><b>你已经了解「抽穗开花期」。</b><span>现在试着做一次农事决策，看看会怎样影响生长。</span></div>
+          <a class="ds-btn ds-btn-primary" href="index-v2.html?focus=stage7">进入该阶段模拟 →</a>
+        </div>
+      </section>
+
+    <section class="chapter" id="stage8" data-chapter="stage8" data-label="STAGE_8">
+      <div class="stage-viz">
+        <svg viewBox="0 0 560 250">
+          <circle cx="200" cy="125" r="86" fill="none" stroke="rgba(242,201,92,.16)" stroke-width="10"/>
+          <circle id="s8-ring" cx="200" cy="125" r="86" fill="none" stroke="var(--accent)" stroke-width="10" stroke-linecap="round"
+                  stroke-dasharray="540" stroke-dashoffset="540" transform="rotate(-90 200 125)"/>
+          <text x="200" y="118" text-anchor="middle" font-size="40" font-weight="800" fill="var(--fg)"><tspan id="s8-pctnum" class="viz-num">0</tspan>%</text>
+          <text id="s8-stage-txt" x="200" y="146" text-anchor="middle" font-size="14" fill="var(--dim)">灌浆 · 籽粒充实度</text>
+          <g id="s8-wheat" transform="translate(392 60)">
+            <path class="s8-leaf" d="M 0 158 C -16 132 -22 104 -16 74" fill="none" stroke="#6da24e" stroke-width="7" stroke-linecap="round"/>
+            <path class="s8-leaf" d="M 12 158 C 10 126 4 100 10 70" fill="none" stroke="#6da24e" stroke-width="7" stroke-linecap="round"/>
+            <path id="s8-spike" d="M 4 66 C 4 44 4 20 4 2" fill="none" stroke="#6da24e" stroke-width="6" stroke-linecap="round"/>
+            <g id="s8-grains"></g>
+          </g>
+          <text id="s8-hint" class="viz-label" x="396" y="236">蜡熟 → 完熟 → 收获</text>
+        </svg>
+      </div>
+      <div class="chapter-stage">第 8 阶段 · 5 月中旬 — 6 月上旬</div>
+      <h2 class="chapter-title st-title">成熟期</h2>
+      <p class="chapter-sub">灌浆、蜡熟、完熟——籽粒一天天饱满,麦田由绿转金,丰收在望。</p>
+      <div class="teach-cards">
+        <div class="teach-card ds-card ds-card-teaching"><b><i>🌱</i>形态特征</b>籽粒充实变硬,颜色由绿转黄,植株逐渐干枯。</div>
+        <div class="teach-card ds-card ds-card-status"><b><i>🧑‍🌾</i>农事要点</b>蜡熟末期适时收获,"九成熟,十成收"(游戏:🌬️通风)。</div>
+        <div class="teach-card ds-card ds-card-interactive"><b><i>🐛</i>易发病害</b>赤霉病、黑穗病——穗部症状最终显现。<div class="dis-pics"><img src="disease/images/10_赤霉病/10_赤霉病_2.jpg" alt="赤霉病" data-cap="赤霉病"><img src="disease/images/02_黑穗病/02_黑穗病_3.jpg" alt="黑穗病" data-cap="黑穗病"></div></div>
+      </div>
+    
+        <div class="stage-cta">
+          <div class="stage-cta-txt"><b>你已经了解「成熟期」。</b><span>现在试着做一次农事决策，看看会怎样影响生长。</span></div>
+          <a class="ds-btn ds-btn-primary" href="index-v2.html?focus=stage8">进入该阶段模拟 →</a>
+        </div>
+      </section>
+
+    <!-- 11 ANATOMY -->
+    <section class="chapter" id="anatomy" data-chapter="anatomy" data-label="ANATOMY">
+      <div class="chapter-stage">ANATOMY · 结构拆解</div>
+      <h2 class="chapter-title">一穗麦的秘密</h2>
+      <p class="chapter-sub">把麦穗拆开看——芒、颖壳、籽粒;再把籽粒剖开——果皮、种皮、糊粉层、胚乳、胚。</p>
+      <div class="anatomy-head">
+        <div class="anatomy-figs">
+          <figure class="field-figure anatomy-fig" id="anatomy-fig-spike">
+            <div class="img-box">
+              <img src="wheat/figures/小麦颖果特写插画.png" alt="麦穗·小穗·籽粒"/>
+              <div class="img-mask"></div>
+            </div>
+            <figcaption>麦穗 · 小穗 · 籽粒</figcaption>
+          </figure>
+          <figure class="field-figure anatomy-fig" id="anatomy-fig-grain">
+            <div class="img-box">
+              <img src="wheat/figures/小麦颖果纵剖结构图鉴.png" alt="籽粒纵剖面"/>
+              <div class="img-mask"></div>
+            </div>
+            <figcaption>籽粒纵剖面</figcaption>
+          </figure>
+        </div>
+        <div class="anatomy-note">
+          ① 芒 —— 减小鸟害、帮助传播<br>
+          ② 颖壳 —— 保护籽粒<br>
+          ③ 籽粒 —— 即颖果<br>
+          ④ 糊粉层 —— 富含蛋白质与维生素<br>
+          ⑤ 胚乳 —— 占籽粒 80% 以上,磨成面粉<br>
+          ⑥ 胚 —— 新生命的起点
+        </div>
+      </div>
+    </section>
+
+    <!-- 12 NUTRITION -->
+    <section class="chapter" id="nutrition" data-chapter="nutrition" data-label="NUTRITION">
+      <div class="chapter-stage">NUTRITION · 营养组成</div>
+      <h2 class="chapter-title">一粒麦的养分</h2>
+      <p class="chapter-sub">小麦籽粒里藏着什么?——主要是淀粉,还有蛋白质、水分和少量脂肪与矿物质。</p>
+      <div class="bars" id="bars">
+        <div class="bar-row"><span>淀粉</span><div class="bar-track"><div class="bar-fill" data-val="70"></div></div><span class="bar-val"><b class="bar-num">0</b>%</span></div>
+        <div class="bar-row"><span>蛋白质</span><div class="bar-track"><div class="bar-fill" data-val="12"></div></div><span class="bar-val"><b class="bar-num">0</b>%</span></div>
+        <div class="bar-row"><span>水分</span><div class="bar-track"><div class="bar-fill" data-val="13"></div></div><span class="bar-val"><b class="bar-num">0</b>%</span></div>
+        <div class="bar-row"><span>脂肪·灰分</span><div class="bar-track"><div class="bar-fill" data-val="5"></div></div><span class="bar-val"><b class="bar-num">0</b>%</span></div>
+      </div>
+    </section>
+
+    <!-- 13 OUTRO -->
+    <section class="chapter" id="outro" data-chapter="outro" data-label="OUTRO">
+      <div class="chapter-emoji">🌾</div>
+      <div class="chapter-stage">HARVEST · 收获</div>
+      <h2 class="chapter-title">240 天,一粒种子的一生</h2>
+      <p class="chapter-sub">现在,轮到你来当一次麦田的主人。</p>
+      <div class="outro-actions">
+        <a class="btn btn-primary" href="index-v2.html?from=journey" id="play-btn">亲手种一季 →</a>
+        <a class="btn btn-ghost" href="journey.html" id="replay-btn">重新播放</a>
+      </div>
+    </section>
+
+  </main>
+
+  <div id="chapter-card">
+    <div class="card-no" id="card-no"></div>
+    <div class="card-name" id="card-name"></div>
+    <div id="card-desc"></div>
+  </div>
+
+  <div id="scroll-hint">向下滚动 · 开始生长</div>
+
+  <div id="lightbox"><img id="lightbox-img" src="" alt=""><figcaption id="lightbox-cap"></figcaption></div>
+
+  <div id="progress-wrap">
+    <div id="stageMap" class="ds-stage-progress journey-map"></div>
+    <div id="scroll-bar">
+      <div id="scroll-cursor"></div>
+      <div id="cursor-ghost"></div>
+    </div>
+  </div>
+</div>
+
+<script src="assets/anime.min.js"></script>
+<script>
+(function () {
+  'use strict';
+  const A = AnimeJS;
+  const body = document.body;
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ===== 章节定义(顺序即时间轴顺序)===== */
+  const chapters = [
+    { label: 'INTRO',     id: 'intro',     no: '',     name: '开场',       color: '#0e100c', accent: '#f2d98a', desc: '一粒种子,即将开始它的旅程。' },
+    { label: 'USES',      id: 'uses',      no: '',     name: '小麦的用途', color: '#191307', accent: '#f2d98a', desc: '先认识一下,小麦能变成什么。' },
+    { label: 'STAGE_1',   id: 'stage1',    no: '01',  name: '播种期',     color: '#3a2c18', accent: '#e8c98a', desc: '10 月上旬 · 播入 3–5 厘米土层' },
+    { label: 'STAGE_2',   id: 'stage2',    no: '02',  name: '出苗期',     color: '#3d3317', accent: '#cfe08a', desc: '播后 7–10 天 · 破土而出' },
+    { label: 'STAGE_3',   id: 'stage3',    no: '03',  name: '分蘖期',     color: '#333f22', accent: '#a8d98a', desc: '11 月 · 一株变一丛' },
+    { label: 'STAGE_4',   id: 'stage4',    no: '04',  name: '越冬期',     color: '#243039', accent: '#9fc3d9', desc: '12–2 月 · 雪下春化休眠' },
+    { label: 'STAGE_5',   id: 'stage5',    no: '05',  name: '返青期',     color: '#2f4a2e', accent: '#8ad9a8', desc: '3 月上旬 · 由黄转绿' },
+    { label: 'STAGE_6',   id: 'stage6',    no: '06',  name: '拔节期',     color: '#35502f', accent: '#b8e08a', desc: '4 月上旬 · 节间快速伸长' },
+    { label: 'STAGE_7',   id: 'stage7',    no: '07',  name: '抽穗开花期', color: '#4c4423', accent: '#f2e08a', desc: '4 月底–5 月初 · 抽穗扬花' },
+    { label: 'STAGE_8',   id: 'stage8',    no: '08',  name: '成熟期',     color: '#55451f', accent: '#f2c95c', desc: '5 月中–6 月上 · 灌浆变金' },
+    { label: 'ANATOMY',   id: 'anatomy',   no: '★',   name: '麦穗解剖',   color: '#1a2130', accent: '#9fc3d9', desc: '把麦穗与籽粒拆开看' },
+    { label: 'NUTRITION', id: 'nutrition', no: '★',   name: '籽粒营养',   color: '#2b2417', accent: '#f2c95c', desc: '一粒麦里藏着什么' },
+    { label: 'OUTRO',     id: 'outro',     no: '',     name: '收获',       color: '#3d2f10', accent: '#f2b84b', desc: '240 天的旅程,结束也是开始。' }
+  ];
+  const chapterByLabel = {};
+  chapters.forEach(c => { chapterByLabel[c.label] = c; });
+
+  /* ===== 章节加长 + sticky(pin):动画居中,三卡分居左右两侧 ===== */
+  const pinIds = ['stage1', 'stage2', 'stage3', 'stage4', 'stage5', 'stage6', 'stage7', 'stage8', 'anatomy', 'nutrition'];
+  pinIds.forEach(id => {
+    const sec = document.getElementById(id);
+    if (!sec) return;
+    sec.classList.add('is-pinned');
+    const sticky = document.createElement('div');
+    sticky.className = 'chapter-sticky';
+    const cards = sec.querySelector('.teach-cards');
+    if (cards) {
+      // 8 个生育期:三卡拆分到左右侧栏(形态+农事 在左,病害在右)
+      sticky.classList.add('has-sides');
+      const center = document.createElement('div');
+      center.className = 'sticky-center';
+      const left = document.createElement('div');
+      left.className = 'sticky-side sticky-left';
+      const right = document.createElement('div');
+      right.className = 'sticky-side sticky-right';
+      while (sec.firstChild && sec.firstChild !== cards) {
+        center.appendChild(sec.firstChild);
+      }
+      const cardEls = [...cards.children];
+      if (cardEls[0]) left.appendChild(cardEls[0]);
+      if (cardEls[1]) left.appendChild(cardEls[1]);
+      if (cardEls[2]) right.appendChild(cardEls[2]);
+      cards.remove();
+      sticky.appendChild(left);
+      sticky.appendChild(center);
+      sticky.appendChild(right);
+    } else {
+      // 解剖/营养章:保持居中布局
+      while (sec.firstChild) sticky.appendChild(sec.firstChild);
+    }
+    sec.appendChild(sticky);
+  });
+
+  /* ===== 文本拆字 ===== */
+  function splitChars(el) {
+    const text = el.textContent;
+    el.textContent = '';
+    const docFrag = document.createDocumentFragment();
+    for (const ch of text) {
+      const s = document.createElement('span');
+      s.className = 'char';
+      s.setAttribute('aria-hidden', 'true');
+      s.textContent = ch;
+      docFrag.appendChild(s);
+    }
+    el.appendChild(docFrag);
+    return el.querySelectorAll('.char');
+  }
+  const introTitleChars = splitChars(document.querySelector('.intro-title'));
+  const stageTitleChars = {};
+  document.querySelectorAll('.st-title').forEach(el => {
+    stageTitleChars[el.closest('section').dataset.label] = splitChars(el);
+  });
+
+  /* ===== 主时间轴(整页唯一时间轴)===== */
+  const wt = A.createTimeline({
+    id: 'main-timeline',
+    autoplay: false,
+    defaults: { ease: 'inOut(3)' }
+  });
+
+  const D = 2200; // 每章区间时长(标量):动画约 49% 处演完 = sticky 停留区(54.5%)内,滚轮要转 ~10 下才演完一章
+  wt.label('INTRO');
+  wt.call(() => setChapter(chapters[0]), 'INTRO'); // 回滚到开场时章节卡也恢复"开场"
+  // —— INTRO 开场内容 ——
+  wt.add('#seed-g', { y: [-260, 0], opacity: [0, 1], duration: 700, ease: 'out(3)' }, 'INTRO+=150');
+  wt.add('#seed-root', { draw: ['0 0', '0 1'], duration: 500, ease: 'out(3)' }, 'INTRO+=550');
+  wt.add('#seed-shoot', { draw: ['0 0', '0 1'], duration: 500, ease: 'out(3)' }, 'INTRO+=700');
+  wt.add('#intro .chapter-stage', { opacity: [0, 1], y: [14, 0], duration: 400 }, 'INTRO+=1000');
+  wt.add(introTitleChars, {
+    opacity: [0, 1], y: [34, 0], duration: 420, ease: 'out(3)',
+    delay: A.stagger(26, { from: 'center' })
+  }, 'INTRO+=1200');
+  wt.add('.intro-sub', { opacity: [0, 1], y: [20, 0], duration: 450 }, 'INTRO+=1500');
+  wt.add('#scroll-hint', { opacity: [0, 1], duration: 400 }, 'INTRO+=2000');
+  wt.label('INTRO_ON', 600).label('INTRO_END', 2400);
+  wt.add({ duration: 120 }); // INTRO_END 与 USES 之间留缓冲,避免开场结束即触发 USES 章节卡
+
+  // —— 各章色温 + 标题动画 + 章节卡(label 用绝对位置,保证区间不重叠)——
+  let pos = wt.labels.INTRO_END + 120;
+  chapters.slice(1).forEach(c => {
+    wt.label(c.label, pos);
+    wt.add(body, { backgroundColor: c.color, duration: 850 }, c.label);
+    wt.add(body, { '--accent': c.accent, duration: 850 }, c.label);
+    const chars = stageTitleChars[c.label] || [];
+    if (chars.length) {
+      wt.add(chars, {
+        opacity: [0, 1], y: [30, 0], duration: 340, ease: 'out(3)',
+        delay: A.stagger(18, { from: 'center' })
+      }, c.label + '+=80');
+      wt.add(chars, {
+        opacity: [1, 0], y: [0, -14], duration: 150,
+        delay: A.stagger(6, { from: 'center' })
+      }, c.label + '+=850');
+    }
+    wt.add('#chapter-card', { opacity: [0, 1], y: [16, 0], duration: 220 }, c.label + '+=120');
+    wt.call(() => setChapter(c), c.label);
+    pos += D;
+    wt.label(c.label + '_END', pos);
+  });
+
+  // 每章离开时收起章节卡(在下一章 label 处收起再更新)
+  chapters.forEach(c => {
+    if (c.label === 'OUTRO') return;
+  });
+
+  /* ===== 章节卡 / 顶栏 ===== */
+  const $cardNo = document.getElementById('card-no');
+  const $cardName = document.getElementById('card-name');
+  const $cardDesc = document.getElementById('card-desc');
+  const $seasonLabel = document.getElementById('season-label');
+  function setChapter(c) {
+    $cardNo.textContent = c.no ? '第 ' + c.no + ' 阶段' : c.label === 'INTRO' ? '序' : '章';
+    $cardName.textContent = c.name;
+    $cardDesc.textContent = c.desc;
+    $seasonLabel.textContent = c.name;
+  }
+  setChapter(chapters[0]);
+
+  /* ===== 小麦用途词循环(USES 章节)===== */
+  const usesEl = document.getElementById('uses-loop');
+  const usesWords = ['面粉', '馒头', '面条', '面包', '麦片'];
+  let usesIdx = 0, usesRunning = false, usesActive = false;
+  function usesCycle() {
+    if (!usesRunning) return;
+    const chars = usesEl.querySelectorAll('.char');
+    A.createTimeline({ id: 'uses-out' })
+      .add(chars, {
+        opacity: 0, scaleX: 0, duration: 110,
+        delay: A.stagger(16, { from: 'last', ease: 'in(3)' })
+      })
+      .add({ duration: 120 })
+      .call(() => {
+        usesEl.textContent = usesWords[usesIdx++ % usesWords.length];
+        splitChars(usesEl);
+        if (!usesRunning) return;
+        A.createTimeline({ id: 'uses-in' })
+          .add(usesEl.querySelectorAll('.char'), {
+            opacity: [0, 1], scaleX: [0, 1], x: [12, 0], duration: 150,
+            delay: A.stagger(22, { from: 'first', ease: 'in(3)', start: 80 })
+          })
+          .add({ duration: 900 })
+          .call(() => usesCycle())
+          .init();
+      })
+      .init();
+  }
+  splitChars(usesEl);
+  wt.call(() => { usesActive = true; if (!usesRunning) { usesRunning = true; usesCycle(); } }, 'USES');
+  wt.call(() => { usesActive = false; usesRunning = false; }, 'STAGE_1');
+
+  /* ===== 营养柱状图(数字滚动)===== */
+  const barFills = A.$('.bar-fill');
+  const barNums = A.$('.bar-num');
+  barFills.forEach((fill, i) => {
+    const v = +fill.dataset.val;
+    // 注意:timeline 按 add 顺序组合同属性 tween,复位动画必须先 add,否则会覆盖后面的宽度动画
+    wt.add(fill, { width: 0, duration: 150, ease: 'out(2)' }, 'ANATOMY'); // 进入解剖章前归零,回滚时同步
+    wt.add(fill, { width: v + '%', duration: 900, ease: 'out(3)' }, 'NUTRITION+=150');
+    wt.add(barNums[i], {
+      innerHTML: { from: 0, to: v, modifier: x => Math.round(x) },
+      duration: 900, ease: 'out(3)'
+    }, 'NUTRITION+=150');
+  });
+
+
+  /* ============ M2:8 阶段生长动画(全部挂主时间轴,随滚动可逆)============ */
+
+  /* 真实形态图鉴卡:与示意动画并排(新图 wheat/figures/stageN.png 优先,缺失回退现有素材) */
+  const fieldImgs = {
+    stage1: { fig: 'wheat/播种期图片.png', cap: '播种期 · 种子形态' },
+    stage2: { fig: 'wheat/冬小麦生长-出苗期.png', cap: '出苗期 · 田间实拍' },
+    stage3: { fig: 'wheat/冬小麦生长-分蘖期.png', cap: '分蘖期 · 株丛形态' },
+    stage4: { fig: 'wheat/冬小麦生长-越冬期.png', cap: '越冬期 · 匍匐休眠' },
+    stage5: { fig: 'wheat/冬小麦生长-返青期.png', cap: '返青期 · 新叶萌发' },
+    stage6: { fig: 'wheat/冬小麦生长-拔节期.png', cap: '拔节期 · 茎秆伸长' },
+    stage7: { fig: 'wheat/冬小麦生长-抽穗开花期.png', cap: '抽穗开花期 · 田间实拍' },
+    stage8: { fig: 'wheat/冬小麦生长-成熟期.png', cap: '成熟期 · 金色麦穗' }
+  };
+  Object.entries(fieldImgs).forEach(([id, cfg]) => {
+    const sec = document.getElementById(id);
+    const viz = sec && sec.querySelector('.stage-viz');
+    const center = sec && sec.querySelector('.sticky-center');
+    if (!viz || !center) return;
+    const row = document.createElement('div');
+    row.className = 'center-row';
+    viz.parentNode.insertBefore(row, viz);
+    row.appendChild(viz);
+    const fig = document.createElement('figure');
+    fig.className = 'field-figure';
+    const box = document.createElement('div');
+    box.className = 'img-box';
+    const img = document.createElement('img');
+    img.alt = cfg.cap;
+    const mask = document.createElement('div');
+    mask.className = 'img-mask';
+    const cap = document.createElement('figcaption');
+    cap.textContent = cfg.cap;
+    box.appendChild(img);
+    box.appendChild(mask);
+    fig.appendChild(box);
+    fig.appendChild(cap);
+    row.appendChild(fig);
+    const n = id.replace('stage', '');
+    img.src = 'wheat/figures/stage' + n + '.png';
+    img.onerror = () => { img.onerror = null; img.src = cfg.fig; };
+    wt.add(fig, { opacity: [0, 1], x: [36, 0], duration: 340, ease: 'out(3)' }, 'STAGE_' + n + '+=780');
+  });
+
+  /* 解剖章结构图淡入 */
+  wt.add(['#anatomy-fig-spike', '#anatomy-fig-grain'], { opacity: [0, 1], x: [26, 0], duration: 340, ease: 'out(3)', delay: A.stagger(90) }, 'ANATOMY+=140');
+
+  /* 三卡侧滑入:动画演完后,左列(形态/农事)从左滑入,右列(病害)从右滑入 */
+  for (let i = 1; i <= 8; i++) {
+    const label = 'STAGE_' + i;
+    const sec = document.getElementById('stage' + i);
+    if (!sec) continue;
+    const leftCards = sec.querySelectorAll('.sticky-left .teach-card');
+    const rightCards = sec.querySelectorAll('.sticky-right .teach-card');
+    wt.add(leftCards, { opacity: [0, 1], x: [-46, 0], duration: 320, ease: 'out(3)', delay: A.stagger(90) }, label + '+=980');
+    wt.add(rightCards, { opacity: [0, 1], x: [46, 0], duration: 320, ease: 'out(3)', delay: A.stagger(90) }, label + '+=980');
+  }
+
+  /* STAGE_1 播种期:种子剖面拆解 + 深度标尺 */
+  wt.add('#s1-seed', { y: [-90, 0], duration: 220, ease: 'out(3)' }, 'STAGE_1+=80');
+  [['#s1-coat', -64], ['#s1-seedcoat', -32], ['#s1-aleurone', -6], ['#s1-endosperm', 20], ['#s1-embryo', 48]].forEach((l, i) => {
+    wt.add(l[0], { x: l[1], duration: 260, ease: 'out(3)', delay: i * 60 }, 'STAGE_1+=330');
+  });
+  {
+    const s1lines = A.$('#s1-labels .s1-line').map(el => A.createDrawable(el));
+    wt.add(s1lines, { draw: ['0 0', '0 1'], duration: 200, ease: 'out(3)', delay: A.stagger(40) }, 'STAGE_1+=580');
+    wt.add('#s1-labels .s1-txt', { opacity: [0, 1], x: [8, 0], duration: 200, delay: A.stagger(40) }, 'STAGE_1+=580');
+    wt.add('#s1-zone', { opacity: [0, 1], duration: 240 }, 'STAGE_1+=800');
+    wt.add('.s1-num', { opacity: [0, 1], duration: 200, delay: A.stagger(70) }, 'STAGE_1+=800');
+  }
+
+  /* STAGE_2 出苗期:破土 + 真叶展开 + 照片卡 */
+  wt.add('#s2-sprout', { y: [48, 0], duration: 340, ease: 'out(3)' }, 'STAGE_2+=80');
+  wt.add('#s2-leaf', { scaleY: [.12, 1], transformOrigin: ['50% 100%', '50% 100%'], duration: 260, ease: 'out(3)' }, 'STAGE_2+=380');
+  wt.add('#s2-leaf2', { scaleY: [.12, 1], transformOrigin: ['50% 100%', '50% 100%'], duration: 260, ease: 'out(3)' }, 'STAGE_2+=460');
+  wt.add(['#s2-leaf', '#s2-leaf2'], { stroke: ['#c9b06a', '#7abf5a'], duration: 320, ease: 'out(2)' }, 'STAGE_2+=420');
+  wt.add('#s2-sun', { opacity: [0, 1], scale: [.5, 1], duration: 260, ease: 'out(3)' }, 'STAGE_2+=600');
+
+  /* STAGE_3 分蘖期:分蘖数曲线 Canvas + 一株变一丛 */
+  {
+    const s3 = { progress: 0 };
+    const s3cv = document.getElementById('s3-canvas');
+    const s3ctx = s3cv.getContext('2d');
+    const s3d = { days: [0, 5, 10, 15, 20, 25, 30], n: [1, 1, 2, 3, 4, 5, 6] };
+    const s3pts = [];
+    function drawS3(p) {
+      const W = 560, H = 250, L = 52, R = 24, T = 30, B = 44;
+      const c = s3ctx;
+      const accent = getComputedStyle(body).getPropertyValue('--accent').trim() || '#a8d98a';
+      const dim = 'rgba(245,240,224,.45)';
+      c.clearRect(0, 0, W, H);
+      c.strokeStyle = dim; c.lineWidth = 1;
+      c.beginPath(); c.moveTo(L, T); c.lineTo(L, H - B); c.lineTo(W - R, H - B); c.stroke();
+      for (let i = 1; i <= 6; i++) {
+        const y = H - B - (H - T - B) * i / 6;
+        c.strokeStyle = 'rgba(255,255,255,.07)';
+        c.beginPath(); c.moveTo(L, y); c.lineTo(W - R, y); c.stroke();
+        c.fillStyle = dim; c.font = '11px sans-serif'; c.textAlign = 'right';
+        c.fillText(String(i), L - 8, y + 4);
+      }
+      c.fillStyle = dim; c.textAlign = 'center'; c.font = '11px sans-serif';
+      c.fillText('茎蘖数(个/株)', L + 6, T - 12);
+      c.fillText('播种后天数', (L + W - R) / 2, H - 8);
+      s3pts.length = 0;
+      for (let i = 0; i < s3d.days.length; i++) {
+        s3pts.push({
+          x: L + (W - L - R) * s3d.days[i] / 30,
+          y: H - B - (H - T - B) * s3d.n[i] / 6
+        });
+      }
+      const seg = Math.min(p, 1) * (s3pts.length - 1);
+      c.strokeStyle = accent; c.lineWidth = 3; c.lineJoin = 'round'; c.lineCap = 'round';
+      c.beginPath(); c.moveTo(s3pts[0].x, s3pts[0].y);
+      let drawn = p > 0;
+      for (let i = 1; i < s3pts.length; i++) {
+        if (seg >= i) {
+          c.lineTo(s3pts[i].x, s3pts[i].y);
+          drawn = true;
+        } else if (seg > i - 1) {
+          const t = seg - (i - 1);
+          c.lineTo(s3pts[i - 1].x + (s3pts[i].x - s3pts[i - 1].x) * t,
+                   s3pts[i - 1].y + (s3pts[i].y - s3pts[i - 1].y) * t);
+          drawn = true;
+          break;
+        }
+      }
+      if (drawn) c.stroke();
+      for (let i = 0; i < s3pts.length; i++) {
+        const on = seg >= i ? Math.min(1, seg - i + (seg >= i + 1 ? 1 : 0)) : 0;
+        if (on > 0) {
+          c.globalAlpha = Math.min(1, on);
+          c.fillStyle = accent;
+          c.beginPath(); c.arc(s3pts[i].x, s3pts[i].y, 4, 0, Math.PI * 2); c.fill();
+          c.globalAlpha = 1;
+          c.fillStyle = '#fff'; c.font = 'bold 12px sans-serif'; c.textAlign = 'center';
+          c.fillText(String(s3d.n[i]), s3pts[i].x, s3pts[i].y - 10);
+        }
+      }
+    }
+    drawS3(0);
+    wt.add(s3, { progress: [0, 1], duration: 1060, ease: 'linear', onUpdate: () => drawS3(s3.progress) }, 'STAGE_3+=70');
+    wt.add('.s3-mini', { opacity: [0, 1], scale: [0, 1.25, 1], duration: 200, delay: A.stagger(70) }, 'STAGE_3+=120');
+  }
+
+  /* STAGE_4 越冬期:春化低温累积计(60 刻度)+ 雪粒子 */
+  {
+    const s4g = document.getElementById('s4-ticks');
+    const s4ticks = [];
+    for (let i = 0; i < 60; i++) {
+      const ang = (i / 60) * Math.PI * 2 - Math.PI / 2;
+      const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      line.setAttribute('x1', 238 + Math.cos(ang) * 82);
+      line.setAttribute('y1', 125 + Math.sin(ang) * 82);
+      line.setAttribute('x2', 238 + Math.cos(ang) * 92);
+      line.setAttribute('y2', 125 + Math.sin(ang) * 92);
+      line.setAttribute('stroke', 'rgba(159,195,217,.16)');
+      line.setAttribute('stroke-width', '3');
+      s4g.appendChild(line);
+      s4ticks.push(line);
+    }
+    wt.add(s4ticks, { stroke: ['rgba(159,195,217,.16)', 'rgba(159,195,217,.95)'], duration: 16, delay: A.stagger(16), ease: 'out(1)' }, 'STAGE_4+=80');
+    {
+      const s4n = { v: 0 };
+      wt.add(s4n, { v: [0, 60], duration: 1030, ease: 'linear', onUpdate: () => { document.getElementById('s4-num').textContent = Math.round(s4n.v); } }, 'STAGE_4+=80');
+    }
+    // 雪粒子(章节内循环飘落)
+    const s4viz = document.querySelector('#stage4 .stage-viz');
+    const flakes = [];
+    for (let i = 0; i < 14; i++) {
+      const f = document.createElement('div');
+      f.className = 'snow-flake';
+      f.style.left = (6 + Math.random() * 92) + '%';
+      f.style.setProperty('--snow-dur', (5 + Math.random() * 5) + 's');
+      f.style.setProperty('--snow-del', (-Math.random() * 8) + 's');
+      f.style.animation = 'snowFall ' + (5 + Math.random() * 5) + 's linear infinite';
+      f.style.animationDelay = (-Math.random() * 8) + 's';
+      f.style.width = f.style.height = (3 + Math.random() * 4) + 'px';
+      s4viz.appendChild(f);
+      flakes.push(f);
+    }
+    wt.add(flakes, { opacity: [0, .9], duration: 300 }, 'STAGE_4+=200');
+    wt.add(flakes, { opacity: 0, duration: 250 }, 'STAGE_4+=860');
+  }
+
+  /* STAGE_5 返青期:枯黄→新绿 + 气温回升 */
+  wt.add('.s5-leaf', { stroke: ['#b58a3a', '#5aa24e'], duration: 720, ease: 'inOut(2)' }, 'STAGE_5+=120');
+  wt.add('#s5-sun', { opacity: [0, 1], scale: [.5, 1], duration: 300, ease: 'out(3)' }, 'STAGE_5+=420');
+  wt.add('#s5-mercury', { scaleY: [.42, 1], transformOrigin: ['50% 100%', '50% 100%'], duration: 720, ease: 'inOut(2)' }, 'STAGE_5+=150');
+  {
+    const s5t = { v: 2 };
+    wt.add(s5t, { v: [2, 12], duration: 720, ease: 'inOut(2)', onUpdate: () => { document.getElementById('s5-temp').textContent = Math.round(s5t.v) + '℃'; } }, 'STAGE_5+=150');
+  }
+
+  /* STAGE_6 拔节期:节间自下而上伸长 + 株高标尺 */
+  ['#s6-i1', '#s6-i2', '#s6-i3', '#s6-i4'].forEach((sel, i) => {
+    wt.add(sel, { scaleY: [0, 1], transformOrigin: ['50% 100%', '50% 100%'], duration: 230, ease: 'out(3)', delay: i * 95 }, 'STAGE_6+=130');
+  });
+  wt.add('#s6-spike', { scaleY: [0, 1], transformOrigin: ['50% 100%', '50% 100%'], duration: 200, ease: 'out(3)' }, 'STAGE_6+=540');
+  wt.add('#s6-height', { scaleY: [0, 1], transformOrigin: ['50% 100%', '50% 100%'], duration: 720, ease: 'inOut(2)' }, 'STAGE_6+=130');
+  {
+    const s6h = { v: 0 };
+    wt.add(s6h, { v: [0, 75], duration: 720, ease: 'inOut(2)', onUpdate: () => { document.getElementById('s6-hnum').textContent = Math.round(s6h.v) + 'cm'; } }, 'STAGE_6+=130');
+  }
+
+  /* STAGE_7 抽穗开花期:穗抽出 + 小穗展开 + 扬花 */
+  {
+    const s7g = document.getElementById('s7-grains');
+    const NS = 'http://www.w3.org/2000/svg';
+    const grains = [];
+    for (let i = 0; i < 8; i++) {
+      const y = 16 + i * 7;                          // 沿穗轴
+      const side = i % 2 === 0 ? -1 : 1;             // 左右互生
+      const g = document.createElementNS(NS, 'g');
+      const glume = document.createElementNS(NS, 'line');
+      glume.setAttribute('x1', side * 2); glume.setAttribute('y1', y + 3);
+      glume.setAttribute('x2', side * 7); glume.setAttribute('y2', y - 1);
+      glume.setAttribute('stroke', '#c9b878'); glume.setAttribute('stroke-width', '1.6');
+      const grain = document.createElementNS(NS, 'ellipse');
+      grain.setAttribute('cx', side * 7); grain.setAttribute('cy', y);
+      grain.setAttribute('rx', '6'); grain.setAttribute('ry', '4.2');
+      grain.setAttribute('fill', '#e8d488');
+      grain.setAttribute('transform', 'rotate(' + side * -22 + ' ' + side * 7 + ' ' + y + ')');
+      const awn = document.createElementNS(NS, 'line');
+      awn.setAttribute('x1', side * 8); awn.setAttribute('y1', y - 4);
+      awn.setAttribute('x2', side * 14); awn.setAttribute('y2', y - 18);
+      awn.setAttribute('stroke', '#d9c878'); awn.setAttribute('stroke-width', '1.4');
+      awn.setAttribute('stroke-linecap', 'round');
+      g.appendChild(glume); g.appendChild(grain); g.appendChild(awn);
+      s7g.appendChild(g);
+      grains.push(g);
+    }
+    wt.add('#s7-spike', { y: [78, 0], duration: 380, ease: 'out(3)' }, 'STAGE_7+=100');
+    wt.add(grains, { scale: [0, 1], duration: 160, ease: 'out(3)', delay: A.stagger(34, { from: 'first' }) }, 'STAGE_7+=420');
+    // 花粉粒子
+    const s7p = document.getElementById('s7-pollen');
+    const pollens = [];
+    for (let i = 0; i < 12; i++) {
+      const c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      c.setAttribute('cx', '0'); c.setAttribute('cy', '52');
+      c.setAttribute('r', '2.4'); c.setAttribute('fill', '#f2e08a');
+      s7p.appendChild(c);
+      pollens.push(c);
+    }
+    wt.add(pollens, {
+      x: (t, i) => A.random(-48, 48),
+      y: (t, i) => A.random(6, 62),
+      opacity: [0, 1, 0],
+      duration: 340,
+      delay: A.stagger(30),
+      ease: 'out(2)'
+    }, 'STAGE_7+=640');
+  }
+
+  /* STAGE_8 成熟期:灌浆进度环 + 麦穗由绿转金 */
+  {
+    const s8g = document.getElementById('s8-grains');
+    const NS8 = 'http://www.w3.org/2000/svg';
+    const grains8 = [];
+    for (let i = 0; i < 6; i++) {
+      const y = 18 + i * 8;
+      const side = i % 2 === 0 ? -1 : 1;
+      const g = document.createElementNS(NS8, 'g');
+      const grain = document.createElementNS(NS8, 'ellipse');
+      grain.setAttribute('cx', side * 7); grain.setAttribute('cy', y);
+      grain.setAttribute('rx', '6'); grain.setAttribute('ry', '4.6');
+      grain.setAttribute('fill', '#6da24e');
+      grain.setAttribute('transform', 'rotate(' + side * -24 + ' ' + side * 7 + ' ' + y + ')');
+      const awn = document.createElementNS(NS8, 'line');
+      awn.setAttribute('x1', side * 8); awn.setAttribute('y1', y - 5);
+      awn.setAttribute('x2', side * 14); awn.setAttribute('y2', y - 20);
+      awn.setAttribute('stroke', '#6da24e'); awn.setAttribute('stroke-width', '1.5');
+      awn.setAttribute('stroke-linecap', 'round');
+      g.appendChild(grain); g.appendChild(awn);
+      s8g.appendChild(g);
+      grains8.push(g);
+    }
+    wt.add('#s8-ring', { strokeDashoffset: [540, 0], duration: 1000, ease: 'linear' }, 'STAGE_8+=90');
+    {
+      const s8n = { v: 0 };
+      wt.add(s8n, { v: [0, 100], duration: 1000, ease: 'linear', onUpdate: () => { document.getElementById('s8-pctnum').textContent = Math.round(s8n.v); } }, 'STAGE_8+=90');
+    }
+    wt.add(['.s8-leaf', '#s8-spike'], { stroke: ['#6da24e', '#d9a83c'], duration: 900, ease: 'inOut(2)' }, 'STAGE_8+=150');
+    wt.add(grains8, { fill: ['#6da24e', '#e8c45a'], stroke: ['#6da24e', '#d9b848'], duration: 900, ease: 'inOut(2)' }, 'STAGE_8+=150');
+    const s8txt = document.getElementById('s8-stage-txt');
+    wt.call(self => { s8txt.textContent = self.backwards ? '灌浆 · 籽粒充实度' : '蜡熟 · 籽粒变硬'; }, 'STAGE_8+=150');
+    wt.call(self => { s8txt.textContent = self.backwards ? '蜡熟 · 籽粒变硬' : '完熟 · 收获在即'; }, 'STAGE_8+=680');
+  }
+
+  wt.init();
+  const TOTAL = wt.duration;
+
+  /* ===== 滚动 scrubbing:proxy + 段映射 ===== */
+  const si = { currentTime: 0, progress: 0 };
+
+  // 章节高度段映射
+  let segs = [];
+  function computeSegments() {
+    // 段边界必须与滚动进度同基准:scrollY / maxScroll(而非章节高度比例)
+    const secs = A.$('#journey > .chapter');
+    const maxScroll = Math.max(1, document.body.scrollHeight - window.innerHeight);
+    segs = secs.map(s => {
+      const c = chapterByLabel[s.dataset.label];
+      const start = s.offsetTop / maxScroll;
+      const end = (s.offsetTop + s.offsetHeight) / maxScroll;
+      return { c, start, end, t0: wt.labels[c.label], t1: wt.labels[c.label + '_END'] };
+    });
+  }
+  computeSegments();
+  const lerp = (a, b, p) => a + (b - a) * p;
+  function seekAt(p) {
+    const q = Math.min(Math.max(p, 0), 1);
+    for (const s of segs) {
+      if (q >= s.start && q <= s.end) {
+        const local = s.end > s.start ? (q - s.start) / (s.end - s.start) : 1;
+        si.currentTime = lerp(s.t0, s.t1, local);
+        break;
+      }
+    }
+    wt.seek(si.currentTime);
+  }
+
+  /* ===== 开场自动播放 ===== */
+  let introDone = reduced;
+  const introAnim = A.animate(si, {
+    id: 'intro-animation',
+    currentTime: [0, wt.labels.INTRO_END],
+    composition: 'none',
+    ease: 'inOut(3)',
+    duration: 3000,
+    onUpdate: () => { wt.seek(si.currentTime); },
+    onComplete: () => { introDone = true; }
+  });
+  if (reduced) {
+    introAnim.pause();
+    si.currentTime = wt.labels.INTRO_END;
+    wt.seek(si.currentTime);
+    introDone = true;
+  }
+
+  /* ===== 主滚动监听(sync 平滑)===== */
+  // 注意:#scroll-cursor 的位置由 Draggable 的 progressX 管理,不可再用 createAnimatable 接管 x(会互相覆盖)
+  const ghostAnim = A.createAnimatable('#cursor-ghost', { x: 0, opacity: 100 });
+
+  // 自建滚动 scrubbing:手动平滑循环(与 anime.js sync 模式同款 lerp 公式),
+  // 不依赖库内部 wakeTicker/scrollTicker 链,后台节流环境下依然可靠。
+  let targetP = 0, smoothP = 0, rafId = null;
+  const SMOOTH = .9;
+  function syncStep() {
+    smoothP += (targetP - smoothP) * (0.01 + 0.19 * SMOOTH);
+    if (Math.abs(targetP - smoothP) < 0.0001) smoothP = targetP;
+    si.progress = smoothP;
+    seekAt(smoothP);
+    if (!drag.grabbed) drag.progressX = smoothP;
+    if (smoothP !== targetP) {
+      rafId = requestAnimationFrame(syncStep);
+    } else {
+      rafId = null;
+    }
+  }
+  function startSync() {
+    if (rafId == null) rafId = requestAnimationFrame(syncStep);
+  }
+  function snapToTarget() {
+    smoothP = targetP;
+    si.progress = smoothP;
+    seekAt(smoothP);
+    if (!drag.grabbed) drag.progressX = smoothP;
+  }
+  let scrollEndTimer = null;
+  let lastMaxScroll = 0;
+  window.addEventListener('scroll', () => {
+    if (apAnim) return; // 自动播放期间由播放器驱动,忽略程序化滚动事件
+    const max = document.body.scrollHeight - window.innerHeight;
+    // 图片/内容加载导致页面高度变化时,自动重算段映射(避免定位漂移)
+    if (Math.abs(max - lastMaxScroll) > 4) {
+      lastMaxScroll = max;
+      computeSegments();
+    }
+    targetP = max > 0 ? Math.min(Math.max(window.scrollY / max, 0), 1) : 0;
+    if (!introDone && targetP > 0.001) {
+      introAnim.pause();
+      introDone = true;
+    }
+    startSync();
+    // 兜底:滚动停止后确保收敛(后台 rAF 节流时也保证最终状态正确)
+    clearTimeout(scrollEndTimer);
+    scrollEndTimer = setTimeout(() => { if (smoothP !== targetP) snapToTarget(); }, 300);
+  }, { passive: true });
+  if ('onscrollend' in window) {
+    window.addEventListener('scrollend', snapToTarget, { passive: true });
+  }
+
+  /* ===== 可拖拽进度条 ===== */
+  const bar = document.getElementById('scroll-bar');
+  const $bar = A.$(bar);
+  // 13 个章节刻度按钮
+  chapters.forEach((c, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'scroll-button';
+    btn.dataset.name = (c.no ? c.no + ' ' : '') + c.name;
+    btn.addEventListener('click', () => {
+      stopAutoplay();
+      const sec = document.getElementById(c.id);
+      const target = Math.max(0, sec.offsetTop - 1);
+      document.scrollingElement.scrollTo({ top: target, behavior: 'smooth' });
+    });
+    bar.appendChild(btn);
+  });
+  bar.appendChild(document.getElementById('scroll-cursor'));
+  bar.appendChild(document.getElementById('cursor-ghost'));
+
+  const drag = A.createDraggable('#scroll-cursor', {
+    y: false,
+    container: '#scroll-bar',
+    containerFriction: 1,
+    containerPadding: [0, -1, 0, -1],
+    onGrab: () => { ghostAnim.opacity(0); stopAutoplay(); },
+    onRelease: self => {
+      const p = self.progressX;
+      document.scrollingElement.scrollTop =
+        (document.body.scrollHeight - window.innerHeight) * Math.min(Math.max(p, 0), 1);
+    },
+    onUpdate: self => {
+      if (self.grabbed) {
+        const p = Math.min(Math.max(self.progressX, 0), 1);
+        si.progress = p;
+        seekAt(p);
+      }
+    }
+  });
+  drag.progressX = 0;
+
+  // 点击进度条空白处直接跳转
+  bar.addEventListener('click', e => {
+    if (e.target !== bar) return;
+    stopAutoplay();
+    const r = bar.getBoundingClientRect();
+    const p = Math.min(Math.max((e.clientX - r.left) / r.width, 0), 1);
+    document.scrollingElement.scrollTop =
+      (document.body.scrollHeight - window.innerHeight) * p;
+  });
+
+  // hover 幽灵光标
+  bar.addEventListener('mousemove', e => {
+    const r = bar.getBoundingClientRect();
+    const x = Math.min(Math.max((e.clientX - r.left) / r.width, 0), 1) * r.width - 2;
+    ghostAnim.x(x);
+    ghostAnim.opacity(1);
+  });
+  bar.addEventListener('mouseleave', () => { ghostAnim.opacity(0); });
+
+  /* ===== 自动播放(像视频一样自动走完全程)===== */
+  const apBtn = document.getElementById('autoplay-btn');
+  const apObj = { progress: 0 };
+  let apAnim = null;
+  const AP_DURATION = 95; // 全程秒数(13 章,每章约 7 秒)
+  function stopAutoplay() {
+    if (!apAnim) return;
+    apAnim.pause();
+    apAnim = null;
+    apBtn.classList.remove('playing');
+    apBtn.textContent = '▶ 自动播放';
+  }
+  function startAutoplay() {
+    if (apAnim) { stopAutoplay(); return; }
+    apBtn.classList.add('playing');
+    apBtn.textContent = '⏸ 暂停';
+    apObj.progress = si.progress;
+    const remaining = Math.max(0.02, 1 - si.progress);
+    apAnim = A.animate(apObj, {
+      id: 'autoplay',
+      progress: [si.progress, 1],
+      duration: AP_DURATION * 1000 * remaining,
+      ease: 'linear',
+      composition: 'none',
+      onUpdate: () => {
+        const p = apObj.progress;
+        si.progress = p;
+        seekAt(p);
+        document.scrollingElement.scrollTop =
+          Math.max(0, document.body.scrollHeight - window.innerHeight) * p;
+        if (!drag.grabbed) drag.progressX = p;
+      },
+      onComplete: () => { stopAutoplay(); }
+    });
+  }
+  apBtn.addEventListener('click', startAutoplay);
+  // 用户手动干预(滚轮/触摸/翻页键)时自动暂停
+  window.addEventListener('wheel', () => { if (apAnim) stopAutoplay(); }, { passive: true });
+  window.addEventListener('touchstart', () => { if (apAnim) stopAutoplay(); }, { passive: true });
+  window.addEventListener('keydown', e => {
+    if (apAnim && ['ArrowDown', 'ArrowUp', 'PageDown', 'PageUp', ' ', 'Home', 'End'].includes(e.key)) {
+      stopAutoplay();
+    }
+  });
+
+  /* ===== 病害图放大查看 ===== */
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+  const lightboxCap = document.getElementById('lightbox-cap');
+  document.addEventListener('click', e => {
+    const img = e.target.closest && e.target.closest('.dis-pics img');
+    if (img) {
+      lightboxImg.src = img.src;
+      lightboxCap.textContent = img.dataset.cap || img.alt || '';
+      lightbox.classList.add('show');
+    } else if (e.target === lightbox || e.target === lightboxImg) {
+      lightbox.classList.remove('show');
+    }
+  });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') lightbox.classList.remove('show');
+  });
+
+  /* ===== 页面完全加载后重算段映射(图片撑高页面)===== */
+  window.addEventListener('load', () => {
+    computeSegments();
+    seekAt(si.progress);
+  });
+
+  /* ===== resize:重算段映射 ===== */
+  let resizeTimer = null;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      computeSegments();
+      seekAt(si.progress);
+    }, 200);
+  });
+
+  /* ===== 键盘辅助(教学场景):方向键逐章翻 ===== */
+  window.addEventListener('keydown', e => {
+    if (e.key === 'ArrowDown' || e.key === 'PageDown') {
+      const secs = A.$('#journey > .chapter');
+      const current = si.progress;
+      for (const s of segs) {
+        if (current < s.end - 0.001) {
+          document.scrollingElement.scrollTo({ top: document.getElementById(s.c.id).offsetTop, behavior: 'smooth' });
+          return;
+        }
+      }
+    }
+  });
+
+  window.__journey = { si, wt, seekAt, drag, ghostAnim, chapters };
+
+  console.log('[journey] M1 骨架已启动,主时间轴总长', TOTAL + 'ms,章节', chapters.length);
+})();
+
+/* ===== [P2·STEP7] 知识路径只读增强：当前阶段 + 阶段地图（仅 getItem，纯 UI 定位） ===== */
+(function () {
+  'use strict';
+  var STAGE_NAMES = ['播种','出苗','分蘖','越冬','返青','拔节','抽穗','成熟'];
+  var CHAPTER_IDS = ['stage1','stage2','stage3','stage4','stage5','stage6','stage7','stage8'];
+  var stage = -1;
+  try {
+    var raw = localStorage.getItem('wheatGameV3');
+    if (raw) {
+      var s = JSON.parse(raw);
+      if (s && typeof s.stage === 'number' && s.stage >= 0 && s.stage <= 7) stage = s.stage;
+    }
+  } catch (e) {}
+  /* 顶部当前阶段上下文 */
+  var chip = document.getElementById('stageContext');
+  if (chip) chip.textContent = stage >= 0 ? '你正在学习：' + STAGE_NAMES[stage] + '期 · 第 ' + (stage + 1) + ' / 8 阶段' : '尚未开始这一季';
+  /* 阶段地图（13 章节中 stage1-8 ↔ 8 生育阶段 1:1；点击仅页面定位） */
+  var mapEl = document.getElementById('stageMap');
+  if (mapEl) {
+    mapEl.innerHTML = STAGE_NAMES.map(function (n, i) {
+      var cls = stage < 0 ? '' : (i < stage ? 'is-complete' : (i === stage ? 'is-current' : 'is-upcoming'));
+      return '<button type="button" class="ds-stage-node ' + cls + '" data-chapter="' + CHAPTER_IDS[i] + '" aria-label="定位到' + n + '期章节"><span class="ds-stage-dot"></span><span>' + n + '</span></button>';
+    }).join('');
+    mapEl.addEventListener('click', function (e) {
+      var node = e.target.closest ? e.target.closest('.ds-stage-node') : null;
+      if (!node) return;
+      try { if (typeof stopAutoplay === 'function') stopAutoplay(); } catch (err) {}
+      var sec = document.getElementById(node.getAttribute('data-chapter'));
+      if (sec) document.scrollingElement.scrollTo({ top: Math.max(0, sec.offsetTop - 1), behavior: 'smooth' });
+    });
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+# 环境与密钥 —— 绝不上传
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+*.p12
+credentials*
+secrets*
+
+# 本地开发
+node_modules/
+serve-dev.cjs
+.tmp_syntax/
+animejs-analysis/
+ns-hero/
+
+# 历史备份目录（不公开）
+P2_BACKUP_*/
+
+# 内部文档与审计报告（不公开）
+P0_*.md
+P1_*.md
+P1_*/
+P2_*.md
+PRD*.md
+PROJECT_*.md
+PROJECT_AUDIT.md
+TEACHING_AGENT_DESIGN.md
+STEP43_VIDEO_INVENTORY.md
+清单.md
+README_DEV*
+
+# 旧版/备份页面
+index-legacy.html
+index-v2.bak.html
+
+# 编辑器/系统
+.DS_Store
+Thumbs.db
+.claude/
+.codex/
+.cursor/
+.workbuddy/
+._*
+
+# 素材备份目录与开发文件（不公开）
+disease/images_backup_20260817/
+variety/variety_backup_20260817/
+disease/images/review.html
+disease/images/sources.json
+variety/variety_review.html
+variety/sources.json
+disease/*.md
+variety/*.md
+wheat/生图提示词.md
+wheat/冬小麦生长周期图片生成需求.*
+P2_BACKUP_DEPLOY_PRE/

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🌾 伴学麦苗 · 田园物语</title>
+<link rel="stylesheet" href="assets/pet.css?v=20260817l">
+<style>
+  html, body {
+    margin: 0;
+    height: 100%;
+    overflow: hidden;
+    background: linear-gradient(160deg, #eaf6e4 0%, #dcefdc 55%, #f4ecd8 100%);
+    font-family: "Microsoft YaHei UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  }
+  /* 独立窗口中的桌宠：默认居中（calc 定位，不依赖 transform，
+     跟随模式下 inline left/top 可自然覆盖此规则） */
+  #wheatPet {
+    position: fixed;
+    left: calc(50% - 88px);
+    top: calc(50% - 105px);
+    right: auto;
+    bottom: auto;
+    transform: none;
+    width: 176px;
+    height: 224px;
+  }
+  .pet-hint {
+    position: fixed;
+    left: 0; right: 0; bottom: 12px;
+    text-align: center;
+    font-size: 11px;
+    color: #7b9180;
+    pointer-events: none;
+  }
+  #petSettingsBtn {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    z-index: 2147483005;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 6px 11px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #0D9488, #14b8a6);
+    color: #fff;
+    font-weight: 700;
+    font-size: 12px;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 3px 0 #0b6e65, 0 5px 10px rgba(15, 23, 42, 0.18);
+  }
+  #petSettingsBtn:hover { filter: brightness(1.07); }
+  #petSettingsBtn svg { width: 14px; height: 14px; }
+</style>
+</head>
+<body>
+<button id="petSettingsBtn" title="桌宠设置">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+  <span>设置</span>
+</button>
+<div class="pet-hint">伴学麦苗 · 与「田园物语」页面实时同步</div>
+<script src="assets/pet.js?v=20260817l"></script>
+</body>
+</html>
