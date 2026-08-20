@@ -1,0 +1,14 @@
+# Cloudflare Pages 上传排除（输出目录 = 仓库根时防止 .git 等被当作静态资源）
+.git/
+.deploy-ssh/
+.claude/
+.codex/
+.cursor/
+.workbuddy/
+.tmp_syntax/
+._*
+P2_BACKUP*/
+animejs-analysis/
+ns-hero/
+.gitignore
+.assetsignore
