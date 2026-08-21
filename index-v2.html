@@ -10698,6 +10698,16 @@ const LEARNING_PROGRESS = (() => {
   };
 })();
 </script>
+<script>
+/* [P2-8 FIX] 首页直达：?open=atlas → 病害图鉴；?open=dashboard → 学习档案（零业务逻辑改动，仅启动钩子） */
+(function(){
+  try{
+    var q=new URLSearchParams(location.search), open=q.get("open");
+    if(open==="atlas"){ setTimeout(function(){ try{ if(typeof openAtlas==="function") openAtlas(-1); }catch(e){} }, 600); }
+    else if(open==="dashboard"){ setTimeout(function(){ try{ if(typeof showDashboard==="function") showDashboard(); }catch(e){} }, 600); }
+  }catch(e){}
+})();
+</script>
 <script src="assets/pet.js?v=20260817l"></script>
 </body>
 </html>

@@ -1705,5 +1705,21 @@ button:disabled,input:disabled,select:disabled,textarea:disabled{cursor:not-allo
   }
 })();
 </script>
+<script>
+/* [P2-8 FIX] 首页直达：?ch=章节名 → 自动滚动到对应章节（复用既有章节定位机制） */
+(function(){
+  try{
+    var q=new URLSearchParams(location.search), ch=q.get("ch");
+    if(ch){
+      setTimeout(function(){
+        try{
+          var sec=document.getElementById(ch);
+          if(sec) document.scrollingElement.scrollTo({ top: Math.max(0, sec.offsetTop - 1), behavior: "smooth" });
+        }catch(e){}
+      }, 500);
+    }
+  }catch(e){}
+})();
+</script>
 </body>
 </html>
