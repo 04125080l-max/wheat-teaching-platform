@@ -7,7 +7,6 @@
   },
   "assets": {
     "directory": ".",
-    "binding": "ASSETS",
     "cache_control": [
       { "glob": "**/*.{js,css,webp,png,jpg,jpeg,svg,ico,woff2,mp4}", "maxAge": 604800 },
       { "glob": "**/*.html", "maxAge": 120 },
