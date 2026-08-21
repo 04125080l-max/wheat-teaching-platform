@@ -1,0 +1,17 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "wheat-teaching-platform",
+  "compatibility_date": "2026-08-15",
+  "observability": {
+    "enabled": true
+  },
+  "assets": {
+    "directory": ".",
+    "binding": "ASSETS",
+    "cache_control": [
+      { "glob": "**/*.{js,css,webp,png,jpg,jpeg,svg,ico,woff2,mp4}", "maxAge": 604800 },
+      { "glob": "**/*.html", "maxAge": 120 },
+      { "glob": "**", "maxAge": 120 }
+    ]
+  }
+}
