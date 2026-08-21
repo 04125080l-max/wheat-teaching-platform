@@ -422,8 +422,10 @@ input{font-family:inherit}
 .transition-card .tm-video-wrap::after{
   content:"";position:absolute;inset:0;z-index:4;pointer-events:none;
   /* 主暗角：中心明亮四周微暗（自然 vignette）+ 右下角定向暗化（覆盖水印区 右15%/下10%） */
-  background:radial-gradient(ellipse at 50% 50%,rgba(15,23,42,0) 52%,rgba(15,23,42,.22) 100%),
-    radial-gradient(120% 110% at 88% 92%,rgba(15,23,42,.72) 0%,rgba(15,23,42,.35) 28%,rgba(15,23,42,0) 46%);
+  /* 四角对称暗角（标准 vignette）：中心明亮 → 四角渐暗 */
+  background:radial-gradient(ellipse at 50% 50%,rgba(15,23,42,0) 42%,rgba(15,23,42,.28) 72%,rgba(15,23,42,.5) 92%,rgba(15,23,42,.58) 100%),
+    /* 右下角水印区微加强（叠加在第一层上，确保 @AIC 不可见） */
+    radial-gradient(120% 110% at 88% 92%,rgba(15,23,42,.4) 0%,rgba(15,23,42,.18) 30%,rgba(15,23,42,0) 50%);
 }
 .stage-img{
   position:absolute;left:50%;bottom:0;width:82%;height:82%;object-fit:contain;
