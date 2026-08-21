@@ -6,6 +6,7 @@
 .cursor/
 .workbuddy/
 .tmp_syntax/
+src/
 ._*
 P2_BACKUP*/
 animejs-analysis/
