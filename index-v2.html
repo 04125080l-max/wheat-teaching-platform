@@ -411,9 +411,20 @@ input{font-family:inherit}
 .transition-head{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:12px;font-weight:800;font-size:1.02rem;color:var(--ds-text);letter-spacing:.04em}
 .transition-stage.tm-to{color:var(--ds-accent)}
 .transition-arrow{color:#94A3B8;font-weight:700}
-.transition-card{position:relative;overflow:hidden}
-.transition-card video{width:100%;aspect-ratio:21/9;object-fit:cover;border-radius: var(--ds-radius-md);background:#e8edf3;display:block;transform:scale(1.18) translate(8%,4%);transform-origin:center}
+.transition-card{position:relative}
+.transition-card video{width:100%;aspect-ratio:21/9;object-fit:cover;border-radius: var(--ds-radius-md);background:#e8edf3;display:block}
 .transition-hint{margin-top:10px;text-align:center;font-size:.78rem;color:#94A3B8;letter-spacing:.08em}
+
+/* [P2-8 FIX] 阶段过渡视频右下角水印遮挡（@AIC）：白色渐变填充，与卡片背景同色融合 */
+/* [P2-8 FIX] 阶段过渡视频水印处理：右下角柔暗角（@AIC 水印被自然压暗，画面保持居中完整） */
+.transition-card .tm-video-wrap{position:relative;border-radius:var(--ds-radius-md);overflow:hidden}
+.transition-card video{border-radius:0}
+.transition-card .tm-video-wrap::after{
+  content:"";position:absolute;inset:0;z-index:4;pointer-events:none;
+  /* 主暗角：中心明亮四周微暗（自然 vignette）+ 右下角定向暗化（覆盖水印区 右15%/下10%） */
+  background:radial-gradient(ellipse at 50% 50%,rgba(15,23,42,0) 52%,rgba(15,23,42,.22) 100%),
+    radial-gradient(120% 110% at 88% 92%,rgba(15,23,42,.72) 0%,rgba(15,23,42,.35) 28%,rgba(15,23,42,0) 46%);
+}
 .stage-img{
   position:absolute;left:50%;bottom:0;width:82%;height:82%;object-fit:contain;
   transform:translateX(-50%) scale(1.5);transform-origin:bottom center;
@@ -1214,7 +1225,9 @@ button:disabled,input:disabled,select:disabled,textarea:disabled{cursor:not-allo
             <span class="transition-arrow">→</span>
             <span class="transition-stage tm-to" id="tmTo">出苗期</span>
           </div>
-          <video id="tmVideo" muted playsinline autoplay loop></video>
+          <div class="tm-video-wrap">
+            <video id="tmVideo" muted playsinline autoplay loop></video>
+          </div>
           <p class="transition-hint">点击任意位置关闭</p>
         </div>
       </div>
